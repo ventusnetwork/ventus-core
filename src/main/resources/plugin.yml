@@ -1,0 +1,6 @@
+name: VentusCore
+version: ${project.version}
+main: com.pyropoops.ventuscore.VentusCore
+api-version: 1.13
+load: STARTUP
+authors: [pyropoops]

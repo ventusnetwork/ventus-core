@@ -1,0 +1,179 @@
+package com.pyropoops.ventuscore.gui;
+
+import com.pyropoops.ventuscore.VentusCore;
+import com.pyropoops.ventuscore.utils.Methods;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
+
+import java.util.Arrays;
+import java.util.UUID;
+
+/**
+ * Slot 11 - Player's skull, name: "pyropoops", short list of stats
+ * Slot 29 - Emerald &2TOKENS
+ * Slot 30 - Epearl &aWARPS
+ * Slot 31 - wood sword &4KITS
+ * Slot 32 - enchanted book &6QUESTS
+ * Slot 33 - booknquill &3PLAYER STATS
+ * Slot 38 - paper &9AUCTION HOUSE
+ * Slot 39 - magenta dye &dCHAT COLOR
+ * Slot 40 - diamond &bBUYCRAFT
+ * Slot 41 - gaby skull &4STAFF
+ * Slot 42 - sign &9DISCORD
+ * rest - black stained glass
+ */
+
+public class MainMenuGUI extends MenuGUI {
+    public MainMenuGUI() {
+        super(Methods.colour("&4&lMENU"));
+    }
+
+    @Override
+    public Inventory constructMenu(Player player) {
+        Inventory inventory = Bukkit.createInventory(null, 54, this.getId());
+
+        for (int i = 0; i < inventory.getSize(); i++) {
+            if (i == 11) {
+                ItemStack playerHead = new ItemStack(Material.PLAYER_HEAD, 1);
+                SkullMeta skullMeta = (SkullMeta) playerHead.getItemMeta();
+                skullMeta.setOwningPlayer(player);
+                skullMeta.setDisplayName(Methods.colour("&c&l") + player.getName());
+                skullMeta.setLore(Arrays.asList(Methods.colour("&cHello! This is your main menu!"),
+                        Methods.colour("&cYou can navigate through the menu with"),
+                        Methods.colour("&cthe buttons below!")));
+                playerHead.setItemMeta(skullMeta);
+                inventory.setItem(i, playerHead);
+            } else if (i == 29) {
+                ItemStack tokens = new ItemStack(Material.EMERALD, 1);
+                ItemMeta tokensMeta = tokens.getItemMeta();
+                tokensMeta.setDisplayName(Methods.colour("&2&lTOKENS"));
+                tokensMeta.setLore(Arrays.asList(Methods.colour("&aYou have " +
+                        VentusCore.instance.playerDataHandler.getTokens(player) + " tokens!")));
+                tokens.setItemMeta(tokensMeta);
+                inventory.setItem(i, tokens);
+            } else if (i == 30) {
+                ItemStack warps = new ItemStack(Material.ENDER_PEARL, 1);
+                ItemMeta warpsMeta = warps.getItemMeta();
+                warpsMeta.setDisplayName(Methods.colour("&a&lWARPS"));
+                warps.setItemMeta(warpsMeta);
+                inventory.setItem(i, warps);
+            } else if (i == 31) {
+                ItemStack kits = new ItemStack(Material.WOODEN_SWORD, 1);
+                ItemMeta kitsMeta = kits.getItemMeta();
+                kitsMeta.setDisplayName(Methods.colour("&4&lKITS"));
+                kits.setItemMeta(kitsMeta);
+                inventory.setItem(i, kits);
+            } else if (i == 32) {
+                ItemStack quests = new ItemStack(Material.ENCHANTED_BOOK, 1);
+                ItemMeta questsMeta = quests.getItemMeta();
+                questsMeta.setDisplayName(Methods.colour("&6&lQUESTS"));
+                questsMeta.setLore(Arrays.asList(Methods.colour("&4&lWIP")));
+                quests.setItemMeta(questsMeta);
+                inventory.setItem(i, quests);
+            } else if (i == 33) {
+                ItemStack playerStats = new ItemStack(Material.WRITABLE_BOOK, 1);
+                ItemMeta playerStatsMeta = playerStats.getItemMeta();
+                playerStatsMeta.setDisplayName(Methods.colour("&3&lPLAYER STATS"));
+                playerStats.setItemMeta(playerStatsMeta);
+                inventory.setItem(i, playerStats);
+            } else if (i == 38) {
+                ItemStack auctionHouse = new ItemStack(Material.PAPER, 1);
+                ItemMeta auctionHouseMeta = auctionHouse.getItemMeta();
+                auctionHouseMeta.setDisplayName(Methods.colour("&9&lAUCTION HOUSE"));
+                auctionHouse.setItemMeta(auctionHouseMeta);
+                inventory.setItem(i, auctionHouse);
+            } else if (i == 39) {
+                ItemStack chatColor = new ItemStack(Material.MAGENTA_DYE, 1);
+                ItemMeta chatColorMeta = chatColor.getItemMeta();
+                chatColorMeta.setDisplayName(Methods.colour("&d&lCHAT COLOR"));
+                chatColor.setItemMeta(chatColorMeta);
+                inventory.setItem(i, chatColor);
+            } else if (i == 40) {
+                ItemStack buycraft = new ItemStack(Material.DIAMOND, 1);
+                ItemMeta buycraftMeta = buycraft.getItemMeta();
+                buycraftMeta.setDisplayName(Methods.colour("&b&lBUYCRAFT"));
+                buycraft.setItemMeta(buycraftMeta);
+                inventory.setItem(i, buycraft);
+            } else if (i == 41) {
+                ItemStack staff = new ItemStack(Material.PLAYER_HEAD, 1);
+                SkullMeta staffMeta = (SkullMeta) staff.getItemMeta();
+                staffMeta.setOwningPlayer(Bukkit.getOfflinePlayer
+                        (UUID.fromString("a83ffbfd-17e1-4d1c-8c97-804c994eb155")));
+                staffMeta.setDisplayName(Methods.colour("&4&lSTAFF"));
+                staff.setItemMeta(staffMeta);
+                inventory.setItem(i, staff);
+            } else if (i == 42) {
+                ItemStack discord = new ItemStack(Material.OAK_SIGN, 1);
+                ItemMeta discordMeta = discord.getItemMeta();
+                discordMeta.setDisplayName(Methods.colour("&9&lDISCORD"));
+                discord.setItemMeta(discordMeta);
+                inventory.setItem(i, discord);
+            } else {
+                inventory.setItem(i, new ItemStack(Material.BLACK_STAINED_GLASS_PANE, 1));
+            }
+        }
+        return inventory;
+    }
+
+    @Override
+    public void handleInventoryClick(Player player, int slot, ClickType type) {
+        if (slot == 29) tokens(player);
+        if (slot == 30) warps(player);
+        if (slot == 31) kits(player);
+        if (slot == 32) quests(player);
+        if (slot == 33) playerStats(player);
+        if (slot == 38) auctionHouse(player);
+        if (slot == 39) chatColor(player);
+        if (slot == 40) buycraft(player);
+        if (slot == 41) staff(player);
+        if (slot == 42) discord(player);
+    }
+
+    private void tokens(Player player) {
+        player.openInventory(tokensGUI.constructMenu(player));
+    }
+
+    private void warps(Player player) {
+    }
+
+    private void kits(Player player) {
+    }
+
+    private void quests(Player player) {
+        // TODO: WIP
+    }
+
+    private void playerStats(Player player) {
+        // TODO: WIP
+    }
+
+    private void auctionHouse(Player player) {
+    }
+
+    private void chatColor(Player player) {
+    }
+
+    private void buycraft(Player player) {
+    }
+
+    private void staff(Player player) {
+    }
+
+    private void discord(Player player) {
+    }
+
+    @EventHandler
+    public void onClick(PlayerInteractEvent e) {
+        if (e.getPlayer().isSneaking() && e.getAction() == Action.LEFT_CLICK_AIR)
+            e.getPlayer().openInventory(this.constructMenu(e.getPlayer()));
+    }
+}
