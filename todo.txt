@@ -1,0 +1,11 @@
+Finish backstabber - find a way for teleportation PvP cooldown to be disabled
+
+Do all the GUIs
+
+Add the two special pickaxes
+
+Add mob drops
+
+Add custom chat stuff I guess
+
+Pick up people and carry - throw them using 0.99x tick mechanics for velocity

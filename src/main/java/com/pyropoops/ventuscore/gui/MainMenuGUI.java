@@ -17,24 +17,9 @@ import org.bukkit.inventory.meta.SkullMeta;
 import java.util.Arrays;
 import java.util.UUID;
 
-/**
- * Slot 11 - Player's skull, name: "pyropoops", short list of stats
- * Slot 29 - Emerald &2TOKENS
- * Slot 30 - Epearl &aWARPS
- * Slot 31 - wood sword &4KITS
- * Slot 32 - enchanted book &6QUESTS
- * Slot 33 - booknquill &3PLAYER STATS
- * Slot 38 - paper &9AUCTION HOUSE
- * Slot 39 - magenta dye &dCHAT COLOR
- * Slot 40 - diamond &bBUYCRAFT
- * Slot 41 - gaby skull &4STAFF
- * Slot 42 - sign &9DISCORD
- * rest - black stained glass
- */
-
 public class MainMenuGUI extends MenuGUI {
     public MainMenuGUI() {
-        super(Methods.colour("&4&lMENU"));
+        super(Methods.colour("&4&lVENTUS MENU"));
     }
 
     @Override
@@ -67,7 +52,7 @@ public class MainMenuGUI extends MenuGUI {
                 warps.setItemMeta(warpsMeta);
                 inventory.setItem(i, warps);
             } else if (i == 31) {
-                ItemStack kits = new ItemStack(Material.WOODEN_SWORD, 1);
+                ItemStack kits = new ItemStack(Material.ARROW, 1);
                 ItemMeta kitsMeta = kits.getItemMeta();
                 kitsMeta.setDisplayName(Methods.colour("&4&lKITS"));
                 kits.setItemMeta(kitsMeta);

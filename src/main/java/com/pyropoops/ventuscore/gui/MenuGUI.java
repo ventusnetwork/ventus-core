@@ -13,6 +13,7 @@ import org.bukkit.inventory.Inventory;
 public abstract class MenuGUI implements Listener {
     public static MainMenuGUI mainMenuGUI;
     public static TokensGUI tokensGUI;
+    public static EnchantsGUI enchantsGUI;
 
     private String id;
 
@@ -52,5 +53,6 @@ public abstract class MenuGUI implements Listener {
     public static void registerMenus() {
         mainMenuGUI = new MainMenuGUI();
         tokensGUI = new TokensGUI();
+        enchantsGUI = new EnchantsGUI();
     }
 }
