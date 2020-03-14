@@ -1,13 +1,13 @@
 package com.pyropoops.ventuscore.gui;
 
+import com.pyropoops.ventuscore.gui.tokens.EnchantsGUI;
+import com.pyropoops.ventuscore.gui.tokens.TokensGUI;
 import com.pyropoops.ventuscore.helper.PluginHelper;
-import com.pyropoops.ventuscore.utils.Methods;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.inventory.Inventory;
 
 public abstract class MenuGUI implements Listener {

@@ -1,7 +1,8 @@
-package com.pyropoops.ventuscore.gui;
+package com.pyropoops.ventuscore.gui.tokens;
 
 import com.pyropoops.ventuscore.VentusCore;
 import com.pyropoops.ventuscore.data.PlayerDataHandler;
+import com.pyropoops.ventuscore.gui.MenuGUI;
 import com.pyropoops.ventuscore.utils.Methods;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -12,14 +13,13 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.material.MaterialData;
 
 import java.util.Collections;
 import java.util.HashMap;
 
 public class EnchantsGUI extends MenuGUI {
     private PlayerDataHandler data;
-    private HashMap<String, Integer> prices;
+    private HashMap<Enchantment, Integer> prices;
 
     public EnchantsGUI() {
         super(Methods.colour("&3&lVENTUS ENCHANTS"));
@@ -28,10 +28,10 @@ public class EnchantsGUI extends MenuGUI {
 
         prices = new HashMap<>();
 
-        prices.put("protection", 75);
-        prices.put("sharpness", 100);
-        prices.put("efficiency", 75);
-        prices.put("silktouch", 100);
+        prices.put(Enchantment.PROTECTION_ENVIRONMENTAL, 75);
+        prices.put(Enchantment.DAMAGE_ALL, 100);
+        prices.put(Enchantment.DIG_SPEED, 75);
+        prices.put(Enchantment.SILK_TOUCH, 100);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class EnchantsGUI extends MenuGUI {
                 ItemMeta protectionMeta = protection.getItemMeta();
                 protectionMeta.setDisplayName(Methods.colour("&3&lPROTECTION I"));
                 protectionMeta.setLore(Collections.singletonList(Methods.colour
-                        ("&aPrice: &2" + prices.get("protection") + " tokens")));
+                        ("&aPrice: &2" + prices.get(Enchantment.PROTECTION_ENVIRONMENTAL) + " tokens")));
                 protection.setItemMeta(protectionMeta);
                 inventory.setItem(i, protection);
             } else if (i == 12) {
@@ -53,7 +53,7 @@ public class EnchantsGUI extends MenuGUI {
                 ItemMeta sharpnessMeta = sharpness.getItemMeta();
                 sharpnessMeta.setDisplayName(Methods.colour("&3&lSHARPNESS I"));
                 sharpnessMeta.setLore(Collections.singletonList(Methods.colour
-                        ("&aPrice: &2" + prices.get("sharpness") + " tokens")));
+                        ("&aPrice: &2" + prices.get(Enchantment.DAMAGE_ALL) + " tokens")));
                 sharpness.setItemMeta(sharpnessMeta);
                 inventory.setItem(i, sharpness);
             } else if (i == 14) {
@@ -62,7 +62,7 @@ public class EnchantsGUI extends MenuGUI {
                 ItemMeta efficiencyMeta = efficiency.getItemMeta();
                 efficiencyMeta.setDisplayName(Methods.colour("&3&lEFFICIENCY I"));
                 efficiencyMeta.setLore(Collections.singletonList(Methods.colour
-                        ("&aPrice: &2" + prices.get("efficiency") + " tokens")));
+                        ("&aPrice: &2" + prices.get(Enchantment.DIG_SPEED) + " tokens")));
                 efficiency.setItemMeta(efficiencyMeta);
                 inventory.setItem(i, efficiency);
             } else if (i == 16) {
@@ -71,7 +71,7 @@ public class EnchantsGUI extends MenuGUI {
                 ItemMeta silkMeta = silk.getItemMeta();
                 silkMeta.setDisplayName(Methods.colour("&3&lSILK TOUCH I"));
                 silkMeta.setLore(Collections.singletonList(Methods.colour
-                        ("&aPrice: &2" + prices.get("silktouch") + " tokens")));
+                        ("&aPrice: &2" + prices.get(Enchantment.SILK_TOUCH) + " tokens")));
                 silk.setItemMeta(silkMeta);
                 inventory.setItem(i, silk);
             } else {
@@ -83,29 +83,21 @@ public class EnchantsGUI extends MenuGUI {
 
     @Override
     public void handleInventoryClick(Player player, int slot, ClickType type) {
-        if (slot == 10) protection(player);
+        if (slot == 10) this.purchase(player, Enchantment.PROTECTION_ENVIRONMENTAL);
+        if (slot == 12) this.purchase(player, Enchantment.DAMAGE_ALL);
+        if (slot == 14) this.purchase(player, Enchantment.DIG_SPEED);
+        if (slot == 16) this.purchase(player, Enchantment.SILK_TOUCH);
     }
 
-    private void protection(Player player) {
-        int price = prices.get("protection");
-        if (handlePrice(player, prices.get("protection"))) {
-            data.setTokens(player, (int) data.getTokens(player) - price);
+    private void purchase(Player player, Enchantment enchantment) {
+        if (handlePrice(player, prices.get(enchantment))) {
             ItemStack i = new ItemStack(Material.ENCHANTED_BOOK, 1);
             EnchantmentStorageMeta meta = (EnchantmentStorageMeta) i.getItemMeta();
-            meta.addStoredEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, true);
+            meta.addStoredEnchant(enchantment, 1, true);
             i.setItemMeta(meta);
             player.getInventory().addItem(i);
-            player.sendMessage(Methods.colour("&aThank you!"));
+            player.sendMessage(Methods.colour("&aItem bought successfully!"));
         }
-    }
-
-    private void sharpness(Player player) {
-    }
-
-    private void efficiency(Player player) {
-    }
-
-    private void silkTouch(Player player) {
     }
 
     private boolean handlePrice(Player player, int price) {
@@ -113,6 +105,7 @@ public class EnchantsGUI extends MenuGUI {
             player.sendMessage(Methods.colour("&cError: &4You do not have enough tokens for that!"));
             return false;
         }
+        data.setTokens(player, (int) data.getTokens(player) - price);
         return true;
     }
 }

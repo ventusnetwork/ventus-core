@@ -1,6 +1,7 @@
-package com.pyropoops.ventuscore.gui;
+package com.pyropoops.ventuscore.gui.tokens;
 
 import com.pyropoops.ventuscore.VentusCore;
+import com.pyropoops.ventuscore.gui.MenuGUI;
 import com.pyropoops.ventuscore.utils.Methods;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -54,9 +55,12 @@ public class TokensGUI extends MenuGUI {
     @Override
     public void handleInventoryClick(Player player, int slot, ClickType type) {
         if (slot == 11) enchants(player);
+        if (slot == 15) specialItems(player);
     }
 
     private void enchants(Player player) {
         player.openInventory(enchantsGUI.constructMenu(player));
     }
+
+    private void specialItems(Player player) {}
 }
