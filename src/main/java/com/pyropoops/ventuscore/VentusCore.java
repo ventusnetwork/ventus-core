@@ -1,6 +1,8 @@
 package com.pyropoops.ventuscore;
 
+import com.pyropoops.ventuscore.command.DiscordCommand;
 import com.pyropoops.ventuscore.command.GetItemCommand;
+import com.pyropoops.ventuscore.command.MainMenuCMD;
 import com.pyropoops.ventuscore.config.ConfigHandler;
 import com.pyropoops.ventuscore.data.PlayerDataHandler;
 import com.pyropoops.ventuscore.gui.MenuGUI;
@@ -14,7 +16,10 @@ import com.pyropoops.ventuscore.item.movement.MagicCarpetItem;
 import com.pyropoops.ventuscore.item.movement.RocketBootsItem;
 import com.pyropoops.ventuscore.permission.PermissionManager;
 import com.pyropoops.ventuscore.utils.TickUpdaterHandler;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.Collections;
 
 public final class VentusCore extends JavaPlugin {
     public static VentusCore instance;
@@ -52,6 +57,12 @@ public final class VentusCore extends JavaPlugin {
         GetItemCommand getItemCommand = new GetItemCommand();
         PluginHelper.registerCommand("getitem", getItemCommand);
         getCommand("getitem").setTabCompleter(getItemCommand);
+
+        PluginCommand menuCmd = PluginHelper.getCommand("mainmenu", new MainMenuCMD());
+        menuCmd.setAliases(Collections.singletonList("menu"));
+        PluginHelper.registerCommand("mainmenu", menuCmd);
+
+        PluginHelper.registerCommand("discord", new DiscordCommand());
     }
 
     private void registerData() {
@@ -60,13 +71,13 @@ public final class VentusCore extends JavaPlugin {
 
 
     private void registerItems() {
-        GrapplingHookItem grapplingHookItem = new GrapplingHookItem();
-        RocketBootsItem rocketBootsItem = new RocketBootsItem();
-        TrackingBow trackingBow = new TrackingBow();
-        MagicCarpetItem magicCarpetItem = new MagicCarpetItem();
-        ScubaArmour scubaArmour = new ScubaArmour();
-        BackstabberItem backstabberItem = new BackstabberItem();
-        GenanItem genanItem = new GenanItem();
+        new GrapplingHookItem();
+        new RocketBootsItem();
+        new TrackingBow();
+        new MagicCarpetItem();
+        new ScubaArmour();
+        new BackstabberItem();
+        new GenanItem();
     }
 
     private void registerConfigs() {

@@ -4,7 +4,6 @@ import com.pyropoops.ventuscore.VentusCore;
 import com.pyropoops.ventuscore.item.Item;
 import com.pyropoops.ventuscore.nms.NMSHandler;
 import com.pyropoops.ventuscore.utils.IPlayerTickUpdater;
-import com.pyropoops.ventuscore.utils.ITickUpdater;
 import com.pyropoops.ventuscore.utils.Methods;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -62,7 +61,7 @@ public class RocketBootsItem extends Item implements IPlayerTickUpdater, Listene
             if (boots == null) return;
             if (hasFuel(boots)) {
                 Double fuel = getFuel(boots);
-                player.setVelocity(player.getLocation().getDirection().multiply(1.75D));
+                player.setVelocity(player.getLocation().getDirection().multiply(1.75D).add(player.getVelocity()));
                 boots = setFuel(boots, fuel - 1D);
                 double multiplier = this.getMaterial().getMaxDurability() / uses;
                 short durability = (short) (this.getMaterial().getMaxDurability() - (this.getFuel(boots) * multiplier));

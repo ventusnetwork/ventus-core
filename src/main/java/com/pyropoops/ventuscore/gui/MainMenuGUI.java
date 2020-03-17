@@ -5,10 +5,7 @@ import com.pyropoops.ventuscore.utils.Methods;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.ClickType;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -128,6 +125,7 @@ public class MainMenuGUI extends MenuGUI {
     }
 
     private void warps(Player player) {
+        player.openInventory(warpsGUI.inventory);
     }
 
     private void kits(Player player) {
@@ -154,11 +152,8 @@ public class MainMenuGUI extends MenuGUI {
     }
 
     private void discord(Player player) {
-    }
-
-    @EventHandler
-    public void onClick(PlayerInteractEvent e) {
-        if (e.getPlayer().isSneaking() && e.getAction() == Action.LEFT_CLICK_AIR)
-            e.getPlayer().openInventory(this.constructMenu(e.getPlayer()));
+        player.closeInventory();
+        player.performCommand("discord");
+        // TODO: make discord command
     }
 }

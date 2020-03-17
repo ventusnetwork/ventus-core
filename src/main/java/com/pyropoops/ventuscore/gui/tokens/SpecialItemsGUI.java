@@ -8,12 +8,12 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
 
 public class SpecialItemsGUI extends MenuGUI {
-    /**
-     *
-     */
+    public Inventory inventory;
 
     public SpecialItemsGUI() {
         super(Methods.colour("&3&lVENTUS SPECIAL ITEMS"));
+
+        this.inventory = this.constructMenu(null);
     }
 
     @Override

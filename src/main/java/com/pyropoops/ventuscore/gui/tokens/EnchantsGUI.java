@@ -18,6 +18,8 @@ import java.util.Collections;
 import java.util.HashMap;
 
 public class EnchantsGUI extends MenuGUI {
+    public Inventory inventory;
+
     private PlayerDataHandler data;
     private HashMap<Enchantment, Integer> prices;
 
@@ -32,6 +34,8 @@ public class EnchantsGUI extends MenuGUI {
         prices.put(Enchantment.DAMAGE_ALL, 100);
         prices.put(Enchantment.DIG_SPEED, 75);
         prices.put(Enchantment.SILK_TOUCH, 100);
+
+        this.inventory = this.constructMenu(null);
     }
 
     @Override

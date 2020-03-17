@@ -40,7 +40,8 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <outputDirectory>/run/media/saifs/Saif's Drive/Java/Minecraft/Servers/Rise Of Empires Server/plugins</outputDirectory>
+                            <outputDirectory>C:/Users/xpyro/Desktop/dev/Minecraft/Servers/server/plugins/
+                            </outputDirectory>
                         </configuration>
                     </execution>
                 </executions>

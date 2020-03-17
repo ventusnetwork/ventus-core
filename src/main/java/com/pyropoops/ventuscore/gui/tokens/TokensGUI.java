@@ -59,7 +59,7 @@ public class TokensGUI extends MenuGUI {
     }
 
     private void enchants(Player player) {
-        player.openInventory(enchantsGUI.constructMenu(player));
+        player.openInventory(enchantsGUI.inventory);
     }
 
     private void specialItems(Player player) {}

@@ -14,6 +14,7 @@ public abstract class MenuGUI implements Listener {
     public static MainMenuGUI mainMenuGUI;
     public static TokensGUI tokensGUI;
     public static EnchantsGUI enchantsGUI;
+    public static WarpsGUI warpsGUI;
 
     private String id;
 
@@ -54,5 +55,6 @@ public abstract class MenuGUI implements Listener {
         mainMenuGUI = new MainMenuGUI();
         tokensGUI = new TokensGUI();
         enchantsGUI = new EnchantsGUI();
+        warpsGUI = new WarpsGUI();
     }
 }
