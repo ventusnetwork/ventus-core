@@ -14,7 +14,7 @@ public interface IPlayerDataHandler {
 
     String getLastKnownUsername(OfflinePlayer player);
 
-    long getTokens(OfflinePlayer player);
+    int getTokens(OfflinePlayer player);
 
     int getLevel(OfflinePlayer player);
 
@@ -24,4 +24,13 @@ public interface IPlayerDataHandler {
 
     void setLevel(OfflinePlayer player, int level);
 
+    int getChatMessages(OfflinePlayer player);
+
+    void setChatMessages(OfflinePlayer player, int messages);
+
+    int getKills(OfflinePlayer player);
+
+    void setKills(OfflinePlayer player, int kills);
+
+    // TODO: votes
 }

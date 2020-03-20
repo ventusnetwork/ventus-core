@@ -1,7 +1,10 @@
 package com.pyropoops.ventuscore.permission;
 
 public enum Permissions {
-    GET_ITEM("ventuscore.getitem")
+    GET_ITEM("ventuscore.getitem"),
+    DISCORD("ventuscore.discord"),
+    MAIN_MENU("ventuscore.mainmenu"),
+    CHAT_BYPASS("ventuscore.chat.bypass")
     ;
     private String value;
 

@@ -1,5 +1,6 @@
 package com.pyropoops.ventuscore;
 
+import com.pyropoops.ventuscore.chat.ChatHandler;
 import com.pyropoops.ventuscore.command.DiscordCommand;
 import com.pyropoops.ventuscore.command.GetItemCommand;
 import com.pyropoops.ventuscore.command.MainMenuCMD;
@@ -51,6 +52,8 @@ public final class VentusCore extends JavaPlugin {
         registerConfigs();
         registerMenus();
         registerItems();
+
+        ChatHandler.register();
     }
 
     private void registerCommands() {

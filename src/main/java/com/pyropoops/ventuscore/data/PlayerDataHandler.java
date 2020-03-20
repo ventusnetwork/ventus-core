@@ -27,6 +27,9 @@ public class PlayerDataHandler implements IPlayerDataHandler {
         jsonObject.put("last-known-username", player.getName());
         jsonObject.put("tokens", ConfigHandler.mainConfig.getConfig().getInt("default-tokens"));
         jsonObject.put("level", 1);
+        jsonObject.put("kills", 0);
+        jsonObject.put("chat-messages", 0);
+        // TODO: jsonObject.put("votes", 0);
         dataObject.saveFile(jsonObject);
 
         DataObject.dataObjects.put(this.playerDataFolderPath + "/" + player.getUniqueId() + ".json", dataObject);
@@ -50,10 +53,7 @@ public class PlayerDataHandler implements IPlayerDataHandler {
             return this.getPlayerData(player);
         }
         DataObject dataObject = DataObject.dataObjects.get(playerDataFolderPath + "/" + player.getUniqueId() + ".json");
-        if (dataObject != null) {
-            return dataObject;
-        }
-        return null;
+        return dataObject;
     }
 
     @Override
@@ -67,13 +67,21 @@ public class PlayerDataHandler implements IPlayerDataHandler {
     }
 
     @Override
-    public long getTokens(OfflinePlayer player) {
-        return (long) this.getPlayerData(player).getDataObject().get("tokens");
+    public int getTokens(OfflinePlayer player) {
+        try {
+            return ((Number) this.getPlayerData(player).getDataObject().get("tokens")).intValue();
+        } catch (NumberFormatException e) {
+            return ConfigHandler.mainConfig.getConfig().getInt("default-tokens");
+        }
     }
 
     @Override
     public int getLevel(OfflinePlayer player) {
-        return (int) this.getPlayerData(player).getDataObject().get("level");
+        try {
+            return ((Number) this.getPlayerData(player).getDataObject().get("level")).intValue();
+        } catch (NumberFormatException e) {
+            return 1;
+        }
     }
 
 
@@ -98,7 +106,36 @@ public class PlayerDataHandler implements IPlayerDataHandler {
         this.getPlayerData(player).saveFile(json);
     }
 
-    // TODO: Get player data
-    // TODO: Get this value, get that value [EXAMPLE: PlayerDataHandler#getPlayerTokens() method]
+    @Override
+    public int getChatMessages(OfflinePlayer player) {
+        try {
+            return ((Number) this.getPlayerData(player).getDataObject().get("chat-messages")).intValue();
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    @Override
+    public void setChatMessages(OfflinePlayer player, int messages) {
+        JSONObject json = this.getPlayerData(player).getDataObject();
+        json.put("chat-messages", messages);
+        this.getPlayerData(player).saveFile(json);
+    }
+
+    @Override
+    public int getKills(OfflinePlayer player) {
+        try {
+            return ((Number) this.getPlayerData(player).getDataObject().get("kills")).intValue();
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    @Override
+    public void setKills(OfflinePlayer player, int kills) {
+        JSONObject json = this.getPlayerData(player).getDataObject();
+        json.put("kills", kills);
+        this.getPlayerData(player).saveFile(json);
+    }
 
 }
