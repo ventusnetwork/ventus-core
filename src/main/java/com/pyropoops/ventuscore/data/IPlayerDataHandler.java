@@ -32,5 +32,11 @@ public interface IPlayerDataHandler {
 
     void setKills(OfflinePlayer player, int kills);
 
+    double getExp(OfflinePlayer player);
+
+    void setExp(OfflinePlayer player, double exp);
+
+    void addExp(OfflinePlayer player, double exp);
+
     // TODO: votes
 }

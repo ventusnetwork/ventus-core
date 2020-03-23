@@ -1,6 +1,7 @@
 package com.pyropoops.ventuscore.gui;
 
 import com.pyropoops.ventuscore.VentusCore;
+import com.pyropoops.ventuscore.permission.Permissions;
 import com.pyropoops.ventuscore.utils.Methods;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -80,11 +81,11 @@ public class MainMenuGUI extends MenuGUI {
                 chatColor.setItemMeta(chatColorMeta);
                 inventory.setItem(i, chatColor);
             } else if (i == 40) {
-                ItemStack buycraft = new ItemStack(Material.DIAMOND, 1);
-                ItemMeta buycraftMeta = buycraft.getItemMeta();
-                buycraftMeta.setDisplayName(Methods.colour("&b&lBUYCRAFT"));
-                buycraft.setItemMeta(buycraftMeta);
-                inventory.setItem(i, buycraft);
+                ItemStack discord = new ItemStack(Material.OAK_SIGN, 1);
+                ItemMeta discordMeta = discord.getItemMeta();
+                discordMeta.setDisplayName(Methods.colour("&9&lDISCORD"));
+                discord.setItemMeta(discordMeta);
+                inventory.setItem(i, discord);
             } else if (i == 41) {
                 ItemStack staff = new ItemStack(Material.PLAYER_HEAD, 1);
                 SkullMeta staffMeta = (SkullMeta) staff.getItemMeta();
@@ -94,11 +95,11 @@ public class MainMenuGUI extends MenuGUI {
                 staff.setItemMeta(staffMeta);
                 inventory.setItem(i, staff);
             } else if (i == 42) {
-                ItemStack discord = new ItemStack(Material.OAK_SIGN, 1);
-                ItemMeta discordMeta = discord.getItemMeta();
-                discordMeta.setDisplayName(Methods.colour("&9&lDISCORD"));
-                discord.setItemMeta(discordMeta);
-                inventory.setItem(i, discord);
+                ItemStack exit = new ItemStack(Material.BARRIER, 1);
+                ItemMeta exitMeta = exit.getItemMeta();
+                exitMeta.setDisplayName(Methods.colour("&4&lEXIT"));
+                exit.setItemMeta(exitMeta);
+                inventory.setItem(i, exit);
             } else {
                 inventory.setItem(i, new ItemStack(Material.BLACK_STAINED_GLASS_PANE, 1));
             }
@@ -115,9 +116,9 @@ public class MainMenuGUI extends MenuGUI {
         if (slot == 33) playerStats(player);
         if (slot == 38) auctionHouse(player);
         if (slot == 39) chatColor(player);
-        if (slot == 40) buycraft(player);
+        if (slot == 40) discord(player);
         if (slot == 41) staff(player);
-        if (slot == 42) discord(player);
+        if (slot == 42) exit(player);
     }
 
     private void tokens(Player player) {
@@ -125,10 +126,12 @@ public class MainMenuGUI extends MenuGUI {
     }
 
     private void warps(Player player) {
+        // TODO
         player.openInventory(warpsGUI.inventory);
     }
 
     private void kits(Player player) {
+        // TODO
     }
 
     private void quests(Player player) {
@@ -140,12 +143,15 @@ public class MainMenuGUI extends MenuGUI {
     }
 
     private void auctionHouse(Player player) {
+        player.closeInventory();
+        player.performCommand("crazyauctions");
     }
 
     private void chatColor(Player player) {
     }
 
-    private void buycraft(Player player) {
+    private void exit(Player player) {
+        player.closeInventory();
     }
 
     private void staff(Player player) {
@@ -153,7 +159,7 @@ public class MainMenuGUI extends MenuGUI {
 
     private void discord(Player player) {
         player.closeInventory();
-        player.performCommand("discord");
-        // TODO: make discord command
+        if (VentusCore.permissionManager.hasPermission(player, Permissions.DISCORD.value(), true, false))
+            player.sendMessage(Methods.colour("&9You can find our discord at: n&nhttp://discord.ventusnetwork.net/"));
     }
 }

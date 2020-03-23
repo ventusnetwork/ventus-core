@@ -12,7 +12,8 @@ import org.bukkit.entity.Player;
 public class MainMenuCMD implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (VentusCore.permissionManager.hasPermission(sender, Permissions.MAIN_MENU.value(), true, false)) menu(sender);
+        if (VentusCore.permissionManager.hasPermission(sender, Permissions.MAIN_MENU.value(), true, false))
+            menu(sender);
         return true;
     }
 

@@ -4,6 +4,7 @@ import com.pyropoops.ventuscore.config.ConfigHandler;
 import com.pyropoops.ventuscore.data.listeners.DataListener;
 import com.pyropoops.ventuscore.helper.PluginHelper;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 import org.json.simple.JSONObject;
 
 import java.io.File;
@@ -27,6 +28,7 @@ public class PlayerDataHandler implements IPlayerDataHandler {
         jsonObject.put("last-known-username", player.getName());
         jsonObject.put("tokens", ConfigHandler.mainConfig.getConfig().getInt("default-tokens"));
         jsonObject.put("level", 1);
+        jsonObject.put("exp", 0.0);
         jsonObject.put("kills", 0);
         jsonObject.put("chat-messages", 0);
         // TODO: jsonObject.put("votes", 0);
@@ -70,8 +72,9 @@ public class PlayerDataHandler implements IPlayerDataHandler {
     public int getTokens(OfflinePlayer player) {
         try {
             return ((Number) this.getPlayerData(player).getDataObject().get("tokens")).intValue();
-        } catch (NumberFormatException e) {
-            return ConfigHandler.mainConfig.getConfig().getInt("default-tokens");
+        } catch (NumberFormatException | NullPointerException e) {
+            this.setTokens(player, ConfigHandler.mainConfig.getConfig().getInt("default-tokens"));
+            return getTokens(player);
         }
     }
 
@@ -79,8 +82,9 @@ public class PlayerDataHandler implements IPlayerDataHandler {
     public int getLevel(OfflinePlayer player) {
         try {
             return ((Number) this.getPlayerData(player).getDataObject().get("level")).intValue();
-        } catch (NumberFormatException e) {
-            return 1;
+        } catch (NumberFormatException | NullPointerException e) {
+            this.setLevel(player, 1);
+            return this.getLevel(player);
         }
     }
 
@@ -110,8 +114,9 @@ public class PlayerDataHandler implements IPlayerDataHandler {
     public int getChatMessages(OfflinePlayer player) {
         try {
             return ((Number) this.getPlayerData(player).getDataObject().get("chat-messages")).intValue();
-        } catch (NumberFormatException e) {
-            return 0;
+        } catch (NumberFormatException | NullPointerException e) {
+            this.setChatMessages(player, 0);
+            return this.getChatMessages(player);
         }
     }
 
@@ -126,8 +131,9 @@ public class PlayerDataHandler implements IPlayerDataHandler {
     public int getKills(OfflinePlayer player) {
         try {
             return ((Number) this.getPlayerData(player).getDataObject().get("kills")).intValue();
-        } catch (NumberFormatException e) {
-            return 0;
+        } catch (NumberFormatException | NullPointerException e) {
+            this.setKills(player, 0);
+            return this.getKills(player);
         }
     }
 
@@ -136,6 +142,37 @@ public class PlayerDataHandler implements IPlayerDataHandler {
         JSONObject json = this.getPlayerData(player).getDataObject();
         json.put("kills", kills);
         this.getPlayerData(player).saveFile(json);
+    }
+
+    @Override
+    public double getExp(OfflinePlayer player) {
+        try {
+            return ((Number) this.getPlayerData(player).getDataObject().get("exp")).doubleValue();
+        } catch (NumberFormatException | NullPointerException e) {
+            this.setExp(player, 0);
+            return this.getExp(player);
+        }
+    }
+
+    @Override
+    public void setExp(OfflinePlayer player, double exp) {
+        JSONObject json = this.getPlayerData(player).getDataObject();
+        json.put("exp", exp);
+        this.getPlayerData(player).saveFile(json);
+    }
+
+    @Override
+    public void addExp(OfflinePlayer player, double exp) {
+        if (exp >= 0) {
+            exp += this.getExp(player);
+            int nextLevel = this.getLevel(player) + 1;
+            double levelUpExp = (nextLevel * 1000D);
+            if (exp >= levelUpExp) {
+                exp -= levelUpExp;
+                this.setLevel(player, this.getLevel(player) + 1);
+            }
+            this.setExp(player, exp);
+        }
     }
 
 }

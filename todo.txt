@@ -1,18 +1,28 @@
+Do all the GUIs
+
+add ways to gain exp and implement that into playerstats
+
+add modules into items such as tracking bow being mountable, and player-only
+
+think of a fun way to implement these modules
+
+
+add commands:
+    /tokens <pay|set|get|give|take> <player> [<amount>]
+    /level <set|get> <player> [<amount>]
+    /playtime <set|get> player [<amount>]
+
 Get player stats working:
 - kills
 - chat messages
 - blocks broken
 - all that shit
 
+make a player profile thing that just brings up stats and some other shit
 
-Finish backstabber - find a way for teleportation PvP cooldown to be disabled
+to compliment levels - add exp into the json - (nextLevel * 1000) exp to level up
+Add the drill pick axe
 
-Do all the GUIs
-
-Add the two special pickaxes
-
-Add mob drops
-
-Add custom chat stuff I guess
+Add mob drops [drops exp occasionally too]
 
 Pick up people and carry - throw them using 0.99x tick mechanics for velocity

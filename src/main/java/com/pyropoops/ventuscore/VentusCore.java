@@ -1,16 +1,16 @@
 package com.pyropoops.ventuscore;
 
 import com.pyropoops.ventuscore.chat.ChatHandler;
-import com.pyropoops.ventuscore.command.DiscordCommand;
 import com.pyropoops.ventuscore.command.GetItemCommand;
 import com.pyropoops.ventuscore.command.MainMenuCMD;
 import com.pyropoops.ventuscore.config.ConfigHandler;
 import com.pyropoops.ventuscore.data.PlayerDataHandler;
+import com.pyropoops.ventuscore.player.PlayerStats;
 import com.pyropoops.ventuscore.gui.MenuGUI;
 import com.pyropoops.ventuscore.helper.PluginHelper;
 import com.pyropoops.ventuscore.item.armour.ScubaArmour;
 import com.pyropoops.ventuscore.item.combat.BackstabberItem;
-import com.pyropoops.ventuscore.item.combat.TrackingBow;
+import com.pyropoops.ventuscore.item.combat.TrackingBowItem;
 import com.pyropoops.ventuscore.item.misc.GenanItem;
 import com.pyropoops.ventuscore.item.movement.GrapplingHookItem;
 import com.pyropoops.ventuscore.item.movement.MagicCarpetItem;
@@ -53,6 +53,7 @@ public final class VentusCore extends JavaPlugin {
         registerMenus();
         registerItems();
 
+        PlayerStats.register();
         ChatHandler.register();
     }
 
@@ -64,8 +65,6 @@ public final class VentusCore extends JavaPlugin {
         PluginCommand menuCmd = PluginHelper.getCommand("mainmenu", new MainMenuCMD());
         menuCmd.setAliases(Collections.singletonList("menu"));
         PluginHelper.registerCommand("mainmenu", menuCmd);
-
-        PluginHelper.registerCommand("discord", new DiscordCommand());
     }
 
     private void registerData() {
@@ -76,7 +75,7 @@ public final class VentusCore extends JavaPlugin {
     private void registerItems() {
         new GrapplingHookItem();
         new RocketBootsItem();
-        new TrackingBow();
+        new TrackingBowItem();
         new MagicCarpetItem();
         new ScubaArmour();
         new BackstabberItem();
