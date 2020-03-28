@@ -20,17 +20,22 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChatHandler implements Listener {
     public static ChatHandler instance = null;
     public List<String> swearWords;
 
+    private ArrayList<AsyncPlayerChatEvent> chatEvents;
+
     private Essentials ess = null;
 
     public ChatHandler() {
         PluginHelper.registerListener(this);
         this.swearWords = ConfigHandler.mainConfig.getConfig().getStringList("swear-words");
+
+        this.chatEvents = new ArrayList<>();
 
         this.hookEssentials();
     }
@@ -65,24 +70,31 @@ public class ChatHandler implements Listener {
         return s;
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
-    public void onChat(AsyncPlayerChatEvent e) {
-        if (e.isCancelled()) return;
-        e.setCancelled(true);
+    private boolean isEventCancelled(AsyncPlayerChatEvent e) {
+        return e.isCancelled() && !this.chatEvents.contains(e);
+    }
 
-        TextComponent baseComponent = new TextComponent();
-        TextComponent chatComponent = new TextComponent(e.getPlayer().getDisplayName());
-        String playerInfo = this.getStats(e.getPlayer());
-        chatComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Methods.colour(playerInfo)).create()));
-        chatComponent.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/msg " + e.getPlayer().getName() + " "));
-        baseComponent.addExtra(chatComponent);
-        TextComponent messageComponent = new TextComponent(Methods.colour("&7 » &f") + e.getMessage());
-        baseComponent.addExtra(messageComponent);
-        for (Player p : VentusCore.instance.getServer().getOnlinePlayers()) {
-            p.spigot().sendMessage(baseComponent);
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onChat(AsyncPlayerChatEvent e) {
+        if (!this.isEventCancelled(e)) {
+            TextComponent baseComponent = new TextComponent();
+            TextComponent chatComponent = new TextComponent(e.getPlayer().getDisplayName());
+            String playerInfo = this.getStats(e.getPlayer());
+            chatComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Methods.colour(playerInfo)).create()));
+            chatComponent.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/msg " + e.getPlayer().getName() + " "));
+            baseComponent.addExtra(chatComponent);
+            TextComponent messageComponent = new TextComponent(Methods.colour("&7 » &f") + e.getMessage());
+            baseComponent.addExtra(messageComponent);
+            for (Player p : VentusCore.instance.getServer().getOnlinePlayers()) {
+                p.spigot().sendMessage(baseComponent);
+            }
+
+            VentusCore.instance.getServer().getLogger().info(ChatColor.stripColor(e.getPlayer().getDisplayName() + " » " + e.getMessage()));
+            e.setCancelled(true);
+            this.chatEvents.clear();
+            this.chatEvents.add(e);
         }
 
-        VentusCore.instance.getServer().getLogger().info(ChatColor.stripColor(e.getPlayer().getDisplayName() + " » " + e.getMessage()));
     }
 
     @EventHandler
