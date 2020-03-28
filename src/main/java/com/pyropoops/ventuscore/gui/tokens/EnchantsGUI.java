@@ -105,11 +105,11 @@ public class EnchantsGUI extends MenuGUI {
     }
 
     private boolean handlePrice(Player player, int price) {
-        if ((int) data.getTokens(player) < price) {
+        if (data.getTokens(player) < price) {
             player.sendMessage(Methods.colour("&cError: &4You do not have enough tokens for that!"));
             return false;
         }
-        data.setTokens(player, (int) data.getTokens(player) - price);
+        data.setTokens(player, data.getTokens(player) - price);
         return true;
     }
 }

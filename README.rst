@@ -6,9 +6,9 @@ Author: pyropoops
 TODO List
 ---------
 
-* Finish all the GUI menus
 * Add Harry Potter's broomstick
 * Add a way to gain exp and implement that into PlayerStats
+* Finish all the GUI menus
 * Add modules into items such as tracking bow being mountable, and player-only (/modifyitem)
 * Add exp as a module in the JSON data - required exp = (nextLevel * 1000) exp to level up
 * Add drill pickaxe
