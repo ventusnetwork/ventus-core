@@ -12,12 +12,6 @@ add commands:
     /level <set|get> <player> [<amount>]
     /playtime <set|get> player [<amount>]
 
-Get player stats working:
-- kills
-- chat messages
-- blocks broken
-- all that shit
-
 make a player profile thing that just brings up stats and some other shit
 
 to compliment levels - add exp into the json - (nextLevel * 1000) exp to level up
