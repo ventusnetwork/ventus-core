@@ -1,7 +1,7 @@
 package com.pyropoops.ventuscore.data;
 
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
-import org.json.simple.JSONObject;
 
 public interface IPlayerDataHandler {
     void createPlayerData(OfflinePlayer player, boolean replace);
@@ -10,15 +10,9 @@ public interface IPlayerDataHandler {
 
     DataObject getPlayerData(OfflinePlayer player);
 
-    void savePlayerData(JSONObject json, OfflinePlayer player);
-
-    String getLastKnownUsername(OfflinePlayer player);
-
     int getTokens(OfflinePlayer player);
 
     int getLevel(OfflinePlayer player);
-
-    void setLastKnownUsername(OfflinePlayer player, String username);
 
     void setTokens(OfflinePlayer player, int tokens);
 
@@ -37,6 +31,10 @@ public interface IPlayerDataHandler {
     void setExp(OfflinePlayer player, double exp);
 
     void addExp(OfflinePlayer player, double exp);
+
+    ChatColor getChatColor(OfflinePlayer player);
+
+    void setChatColor(OfflinePlayer player, ChatColor chatColor);
 
     // TODO: votes
 }

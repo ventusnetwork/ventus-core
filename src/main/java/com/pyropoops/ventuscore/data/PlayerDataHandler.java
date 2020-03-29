@@ -3,8 +3,8 @@ package com.pyropoops.ventuscore.data;
 import com.pyropoops.ventuscore.config.ConfigHandler;
 import com.pyropoops.ventuscore.data.listeners.DataListener;
 import com.pyropoops.ventuscore.helper.PluginHelper;
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 import org.json.simple.JSONObject;
 
 import java.io.File;
@@ -24,15 +24,7 @@ public class PlayerDataHandler implements IPlayerDataHandler {
             return;
         }
         DataObject dataObject = new DataObject(this.playerDataFolderPath + "/" + player.getUniqueId() + ".json", replace);
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("last-known-username", player.getName());
-        jsonObject.put("tokens", ConfigHandler.mainConfig.getConfig().getInt("default-tokens"));
-        jsonObject.put("level", 1);
-        jsonObject.put("exp", 0.0);
-        jsonObject.put("kills", 0);
-        jsonObject.put("chat-messages", 0);
-        // TODO: jsonObject.put("votes", 0);
-        dataObject.saveFile(jsonObject);
+        dataObject.saveFile(new JSONObject());
 
         DataObject.dataObjects.put(this.playerDataFolderPath + "/" + player.getUniqueId() + ".json", dataObject);
     }
@@ -59,16 +51,6 @@ public class PlayerDataHandler implements IPlayerDataHandler {
     }
 
     @Override
-    public void savePlayerData(JSONObject json, OfflinePlayer player) {
-        this.getPlayerData(player).saveFile(json);
-    }
-
-    @Override
-    public String getLastKnownUsername(OfflinePlayer player) {
-        return (String) this.getPlayerData(player).getDataObject().get("last-known-username");
-    }
-
-    @Override
     public int getTokens(OfflinePlayer player) {
         try {
             return ((Number) this.getPlayerData(player).getDataObject().get("tokens")).intValue();
@@ -88,13 +70,6 @@ public class PlayerDataHandler implements IPlayerDataHandler {
         }
     }
 
-
-    @Override
-    public void setLastKnownUsername(OfflinePlayer player, String username) {
-        JSONObject json = this.getPlayerData(player).getDataObject();
-        json.put("last-known-username", username);
-        this.getPlayerData(player).saveFile(json);
-    }
 
     @Override
     public void setTokens(OfflinePlayer player, int tokens) {
@@ -173,6 +148,29 @@ public class PlayerDataHandler implements IPlayerDataHandler {
             }
             this.setExp(player, exp);
         }
+    }
+
+    @Override
+    public ChatColor getChatColor(OfflinePlayer player) {
+        String s;
+        try {
+            s = (String) this.getPlayerData(player).getDataObject().get("chat-color");
+        } catch (NullPointerException e) {
+            this.setChatColor(player, ChatColor.WHITE);
+            return this.getChatColor(player);
+        }
+        ChatColor color = ChatColor.getByChar(s);
+        if (color == null) {
+            return ChatColor.WHITE;
+        }
+        return color;
+    }
+
+    @Override
+    public void setChatColor(OfflinePlayer player, ChatColor chatColor) {
+        JSONObject json = this.getPlayerData(player).getDataObject();
+        json.put("chat-color", chatColor.getChar());
+        this.getPlayerData(player).saveFile(json);
     }
 
 }

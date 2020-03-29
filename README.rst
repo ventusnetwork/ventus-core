@@ -6,7 +6,6 @@ Author: pyropoops
 TODO List
 ---------
 
-* Finish lores in menus, but also in items
 * Add a way to gain exp and implement that into PlayerStats
 * Finish all the GUI menus
 * Add drill pickaxe
