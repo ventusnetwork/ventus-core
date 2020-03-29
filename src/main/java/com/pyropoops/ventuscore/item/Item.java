@@ -10,7 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Item {
+public abstract class Item implements IBuyableItem{
     private ItemStack item;
 
     public static List<Item> items = new ArrayList<>();
@@ -35,6 +35,11 @@ public class Item {
             PluginHelper.registerListener((Listener) this);
         }
         items.add(this);
+    }
+
+    @Override
+    public int getPrice() {
+        return getTier() * 100;
     }
 
     public static Item getItem(String registryName) {

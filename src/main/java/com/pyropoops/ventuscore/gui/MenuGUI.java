@@ -1,6 +1,7 @@
 package com.pyropoops.ventuscore.gui;
 
 import com.pyropoops.ventuscore.gui.tokens.EnchantsGUI;
+import com.pyropoops.ventuscore.gui.tokens.SpecialItemsGUI;
 import com.pyropoops.ventuscore.gui.tokens.TokensGUI;
 import com.pyropoops.ventuscore.helper.PluginHelper;
 import org.bukkit.entity.Player;
@@ -15,6 +16,7 @@ public abstract class MenuGUI implements Listener {
     public static TokensGUI tokensGUI;
     public static EnchantsGUI enchantsGUI;
     public static WarpsGUI warpsGUI;
+    public static SpecialItemsGUI specialItemsGUI;
 
     private String id;
 
@@ -33,17 +35,13 @@ public abstract class MenuGUI implements Listener {
 
     public abstract Inventory constructMenu(Player player);
 
-    public boolean hasInventoryOpen(Player player) {
-        return player.getOpenInventory().getTitle().equals(this.getId());
-    }
-
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
         Inventory inv = event.getClickedInventory();
         if (inv == null) return;
 
-        if (this.hasInventoryOpen(player)) {
+        if (event.getView().getTitle().equals(this.getId())) {
             event.setCancelled(true);
             this.handleInventoryClick(player, event.getSlot(), event.getClick());
         }
@@ -56,5 +54,6 @@ public abstract class MenuGUI implements Listener {
         tokensGUI = new TokensGUI();
         enchantsGUI = new EnchantsGUI();
         warpsGUI = new WarpsGUI();
+        specialItemsGUI = new SpecialItemsGUI();
     }
 }

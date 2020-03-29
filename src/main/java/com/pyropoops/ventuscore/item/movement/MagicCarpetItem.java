@@ -25,7 +25,7 @@ public class MagicCarpetItem extends Item implements Listener, IPlayerTickUpdate
 
 
     public MagicCarpetItem() {
-        super("magiccarpet", Material.BLUE_CARPET, (short) 0, Methods.colour("&4&l&oMAGIC CARPET"), generateLore());
+        super("magiccarpet", Material.BLUE_CARPET, (short) 0, Methods.colour("&b&l&oMAGIC CARPET"), generateLore());
         users = new ArrayList<>();
         VentusCore.tickUpdaterHandler.register(this);
     }
@@ -59,5 +59,15 @@ public class MagicCarpetItem extends Item implements Listener, IPlayerTickUpdate
 
     private boolean isUsing(Player player) {
         return this.isItem(player.getInventory().getItemInMainHand());
+    }
+
+    @Override
+    public boolean isHidden() {
+        return false;
+    }
+
+    @Override
+    public int getTier() {
+        return 5;
     }
 }

@@ -5,6 +5,8 @@ import com.pyropoops.ventuscore.command.GetItemCommand;
 import com.pyropoops.ventuscore.command.MainMenuCMD;
 import com.pyropoops.ventuscore.config.ConfigHandler;
 import com.pyropoops.ventuscore.data.PlayerDataHandler;
+import com.pyropoops.ventuscore.item.Item;
+import com.pyropoops.ventuscore.item.movement.NimbusBroomItem;
 import com.pyropoops.ventuscore.player.PlayerStats;
 import com.pyropoops.ventuscore.gui.MenuGUI;
 import com.pyropoops.ventuscore.helper.PluginHelper;
@@ -21,6 +23,7 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Collections;
+import java.util.Comparator;
 
 public final class VentusCore extends JavaPlugin {
     public static VentusCore instance;
@@ -73,13 +76,23 @@ public final class VentusCore extends JavaPlugin {
 
 
     private void registerItems() {
-        new GrapplingHookItem();
-        new RocketBootsItem();
-        new TrackingBowItem();
-        new MagicCarpetItem();
+        // Tier 1
         new ScubaArmour();
+
+        // Tier 2
+        new RocketBootsItem();
+
+        // Tier 3
         new BackstabberItem();
+
+        // Tier 4
+        new GrapplingHookItem();
+        new TrackingBowItem();
+
+        // Tier 5
+        new MagicCarpetItem();
         new GenanItem();
+        new NimbusBroomItem();
     }
 
     private void registerConfigs() {

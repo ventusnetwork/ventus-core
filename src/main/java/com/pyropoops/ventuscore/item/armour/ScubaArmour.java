@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ScubaArmour implements IPlayerTickUpdater {
+    static int tier = 1;
+    static boolean hidden = false;
+
     private ScubaHelmet scubaHelmet;
     private ScubaChestplate scubaChestplate;
     private ScubaLeggings scubaLeggings;
@@ -56,24 +59,64 @@ public class ScubaArmour implements IPlayerTickUpdater {
 
 class ScubaHelmet extends Item {
     public ScubaHelmet() {
-        super("scubahelmet", Material.DIAMOND_HELMET, (short) 0, Methods.colour("&b&lSCUBA HELMET"), ScubaArmour.generateLore());
+        super("scubahelmet", Material.LEATHER_HELMET, (short) 0, Methods.colour("&b&lSCUBA HELMET"), ScubaArmour.generateLore());
+    }
+
+    @Override
+    public boolean isHidden() {
+        return ScubaArmour.hidden;
+    }
+
+    @Override
+    public int getTier() {
+        return ScubaArmour.tier;
     }
 }
 
 class ScubaChestplate extends Item {
     public ScubaChestplate() {
-        super("scubachestplate", Material.DIAMOND_CHESTPLATE, (short) 0, Methods.colour("&b&lSCUBA CHESTPLATE"), ScubaArmour.generateLore());
+        super("scubachestplate", Material.LEATHER_CHESTPLATE, (short) 0, Methods.colour("&b&lSCUBA CHESTPLATE"), ScubaArmour.generateLore());
+    }
+
+    @Override
+    public boolean isHidden() {
+        return ScubaArmour.hidden;
+    }
+
+    @Override
+    public int getTier() {
+        return ScubaArmour.tier;
     }
 }
 
 class ScubaLeggings extends Item {
     public ScubaLeggings() {
-        super("scubaleggings", Material.DIAMOND_LEGGINGS, (short) 0, Methods.colour("&b&lSCUBA LEGGINGS"), ScubaArmour.generateLore());
+        super("scubaleggings", Material.LEATHER_LEGGINGS, (short) 0, Methods.colour("&b&lSCUBA LEGGINGS"), ScubaArmour.generateLore());
+    }
+
+    @Override
+    public boolean isHidden() {
+        return ScubaArmour.hidden;
+    }
+
+    @Override
+    public int getTier() {
+        return ScubaArmour.tier;
     }
 }
 
 class ScubaBoots extends Item {
     public ScubaBoots() {
-        super("scubaboots", Material.DIAMOND_BOOTS, (short) 0, Methods.colour("&b&lSCUBA BOOTS"), ScubaArmour.generateLore());
+        super("scubaboots", Material.LEATHER_BOOTS, (short) 0, Methods.colour("&b&lSCUBA BOOTS"), ScubaArmour.generateLore());
+    }
+
+    @Override
+    public boolean isHidden() {
+        return ScubaArmour.hidden;
+    }
+
+    @Override
+    public int getTier() {
+        return ScubaArmour.tier;
     }
 }

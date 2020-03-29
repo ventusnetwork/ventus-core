@@ -90,4 +90,14 @@ public class RocketBootsItem extends Item implements IPlayerTickUpdater, Listene
     private boolean hasFuel(ItemStack i) {
         return getFuel(i) > 0;
     }
+
+    @Override
+    public boolean isHidden() {
+        return false;
+    }
+
+    @Override
+    public int getTier() {
+        return 2;
+    }
 }

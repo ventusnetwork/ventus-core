@@ -62,4 +62,13 @@ public class GenanItem extends Item implements Listener {
         }.runTaskLater(VentusCore.instance, 3L);
     }
 
+    @Override
+    public boolean isHidden() {
+        return true;
+    }
+
+    @Override
+    public int getTier() {
+        return 5;
+    }
 }

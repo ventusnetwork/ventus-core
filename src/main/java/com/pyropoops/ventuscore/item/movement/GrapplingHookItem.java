@@ -151,4 +151,13 @@ public class GrapplingHookItem extends Item implements Listener {
     }
 
 
+    @Override
+    public boolean isHidden() {
+        return false;
+    }
+
+    @Override
+    public int getTier() {
+        return 4;
+    }
 }
