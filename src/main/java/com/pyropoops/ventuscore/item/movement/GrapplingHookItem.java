@@ -20,6 +20,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,10 +35,7 @@ public class GrapplingHookItem extends Item implements Listener {
     }
 
     public static List<String> generateLore() {
-        List<String> lore = new ArrayList<>();
-        lore.add(Methods.colour("&aDevice used to grapple from"));
-        lore.add(Methods.colour("&aplace to place."));
-        return lore;
+        return Arrays.asList(Methods.colour("&aTier 4"), Methods.colour("&aUse this to grapple from place to place!"));
     }
 
     @Override

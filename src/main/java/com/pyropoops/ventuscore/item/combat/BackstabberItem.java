@@ -15,6 +15,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class BackstabberItem extends Item implements Listener {
     }
 
     private static List<String> generateLore() {
-        return null;
+        return Arrays.asList(Methods.colour("&cTier 3"), Methods.colour("&cSneak-hit to teleport behind"), Methods.colour("&cyour opponent!"));
     }
 
     @EventHandler

@@ -16,6 +16,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TrackingBowItem extends Item implements Listener {
@@ -26,7 +27,8 @@ public class TrackingBowItem extends Item implements Listener {
     }
 
     public static List<String> generateLore() {
-        return new ArrayList<>();
+        return Arrays.asList(Methods.colour("&eTier 4"),
+                Methods.colour("&eFire your arrow and sneak for your "), Methods.colour("&earrow to fly to the nearest entity!"));
     }
 
     @Override

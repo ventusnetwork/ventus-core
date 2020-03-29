@@ -16,6 +16,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class RocketBootsItem extends Item implements IPlayerTickUpdater, Listener {
@@ -28,7 +29,8 @@ public class RocketBootsItem extends Item implements IPlayerTickUpdater, Listene
     }
 
     private static List<String> generateLore() {
-        return null;
+        return Arrays.asList(Methods.colour("&6Tier 2"), Methods.colour("&6Fly around with these boots!"),
+                Methods.colour("&6Fast but dangerous!"));
     }
 
     @Override

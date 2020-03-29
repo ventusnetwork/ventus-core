@@ -11,6 +11,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ScubaArmour implements IPlayerTickUpdater {
@@ -32,7 +33,7 @@ public class ScubaArmour implements IPlayerTickUpdater {
     }
 
     public static List<String> generateLore() {
-        return new ArrayList<>();
+        return Arrays.asList(Methods.colour("&3Tier 1"));
     }
 
     private boolean isWearing(Player player) {

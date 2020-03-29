@@ -4,7 +4,6 @@ import com.pyropoops.ventuscore.VentusCore;
 import com.pyropoops.ventuscore.item.Item;
 import com.pyropoops.ventuscore.utils.Methods;
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,7 +12,6 @@ import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GenanItem extends Item implements Listener {
@@ -25,7 +23,7 @@ public class GenanItem extends Item implements Listener {
     }
 
     public static List<String> generateLore() {
-        return new ArrayList<>();
+        return null;
     }
 
     @EventHandler

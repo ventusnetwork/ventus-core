@@ -125,7 +125,7 @@ public class ChatHandler implements Listener {
                 count++;
             }
         }
-        if (count >= 10) {
+        if (count > 5) {
             e.setCancelled(true);
             e.getPlayer().sendMessage(Methods.colour("&cPlease do not character spam!"));
         }

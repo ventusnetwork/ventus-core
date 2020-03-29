@@ -14,6 +14,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class NimbusBroomItem extends Item implements Listener {
@@ -22,7 +23,8 @@ public class NimbusBroomItem extends Item implements Listener {
     }
 
     private static List<String> generateLore() {
-        return null;
+        return Arrays.asList(Methods.colour("&cTier 5"),Methods.colour("&cFly around like Harry Potter!"),
+                Methods.colour("&cLight-speed!"));
     }
 
     @EventHandler

@@ -15,6 +15,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,7 +32,7 @@ public class MagicCarpetItem extends Item implements Listener, IPlayerTickUpdate
     }
 
     public static List<String> generateLore() {
-        return new ArrayList<>();
+        return Arrays.asList(Methods.colour("&bTier 5"), Methods.colour("&bFly around!"));
     }
 
     @Override
