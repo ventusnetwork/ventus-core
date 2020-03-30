@@ -77,18 +77,19 @@ public class ChatHandler implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onChat(AsyncPlayerChatEvent e) {
         if (!this.isEventCancelled(e)) {
-            TextComponent baseComponent = new TextComponent();
-            TextComponent chatComponent = new TextComponent(e.getPlayer().getDisplayName());
-            String playerInfo = this.getStats(e.getPlayer());
-            chatComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Methods.colour(playerInfo)).create()));
-            chatComponent.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/msg " + e.getPlayer().getName() + " "));
-            baseComponent.addExtra(chatComponent);
-            TextComponent messageComponent = new TextComponent(Methods.colour("&7 » &f") + e.getMessage());
-            baseComponent.addExtra(messageComponent);
-            for (Player p : VentusCore.instance.getServer().getOnlinePlayers()) {
-                p.spigot().sendMessage(baseComponent);
-            }
+            ComponentBuilder builder = new ComponentBuilder("");
 
+            String playerInfo = this.getStats(e.getPlayer());
+
+            builder.event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/msg " + e.getPlayer().getName() + " "))
+                    .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Methods.colour(playerInfo)).create())).append(TextComponent.fromLegacyText(e.getPlayer().getDisplayName()));
+
+            builder.reset().append(TextComponent.fromLegacyText(Methods.colour("&7 » ")
+                    + VentusCore.instance.playerDataHandler.getChatColor(e.getPlayer()) + e.getMessage()));
+
+            for (Player p : VentusCore.instance.getServer().getOnlinePlayers()) {
+                p.spigot().sendMessage(builder.create());
+            }
             VentusCore.instance.getServer().getLogger().info(ChatColor.stripColor(e.getPlayer().getDisplayName() + " » " + e.getMessage()));
             e.setCancelled(true);
             this.chatEvents.clear();

@@ -46,8 +46,7 @@ public class PlayerDataHandler implements IPlayerDataHandler {
             this.createPlayerData(player, false);
             return this.getPlayerData(player);
         }
-        DataObject dataObject = DataObject.dataObjects.get(playerDataFolderPath + "/" + player.getUniqueId() + ".json");
-        return dataObject;
+        return DataObject.dataObjects.get(playerDataFolderPath + "/" + player.getUniqueId() + ".json");
     }
 
     @Override
@@ -152,16 +151,15 @@ public class PlayerDataHandler implements IPlayerDataHandler {
 
     @Override
     public ChatColor getChatColor(OfflinePlayer player) {
-        String s;
-        try {
-            s = (String) this.getPlayerData(player).getDataObject().get("chat-color");
-        } catch (NullPointerException e) {
+        String s = (String) this.getPlayerData(player).getDataObject().get("chat-color");
+        if (s == null) {
             this.setChatColor(player, ChatColor.WHITE);
             return this.getChatColor(player);
         }
         ChatColor color = ChatColor.getByChar(s);
         if (color == null) {
-            return ChatColor.WHITE;
+            this.setChatColor(player, ChatColor.WHITE);
+            return this.getChatColor(player);
         }
         return color;
     }
@@ -169,7 +167,7 @@ public class PlayerDataHandler implements IPlayerDataHandler {
     @Override
     public void setChatColor(OfflinePlayer player, ChatColor chatColor) {
         JSONObject json = this.getPlayerData(player).getDataObject();
-        json.put("chat-color", chatColor.getChar());
+        json.put("chat-color", String.valueOf(chatColor.getChar()));
         this.getPlayerData(player).saveFile(json);
     }
 
