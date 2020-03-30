@@ -1,7 +1,0 @@
-name: VentusCore
-version: 1.0-SNAPSHOT
-main: com.pyropoops.ventuscore.VentusCore
-api-version: 1.13
-authors: [pyropoops]
-softdepend:
-  - Essentials
