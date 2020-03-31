@@ -3,17 +3,25 @@ package com.pyropoops.ventuscore.data;
 import com.pyropoops.ventuscore.config.ConfigHandler;
 import com.pyropoops.ventuscore.data.listeners.DataListener;
 import com.pyropoops.ventuscore.helper.PluginHelper;
+import com.pyropoops.ventuscore.player.PlayerStats;
+import com.pyropoops.ventuscore.utils.Methods;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 import org.json.simple.JSONObject;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.UUID;
 
 public class PlayerDataHandler implements IPlayerDataHandler {
+    private HashMap<UUID, Integer> playerTicks;
+
     private String playerDataFolderPath;
 
     public PlayerDataHandler(String playerDataFolderPath) {
         this.playerDataFolderPath = playerDataFolderPath;
+        this.playerTicks = new HashMap<>();
         PluginHelper.registerListener(new DataListener());
     }
 
@@ -144,6 +152,12 @@ public class PlayerDataHandler implements IPlayerDataHandler {
             if (exp >= levelUpExp) {
                 exp -= levelUpExp;
                 this.setLevel(player, this.getLevel(player) + 1);
+                this.setTokens(player, this.getTokens(player) + 10);
+                if (player instanceof Player) {
+                    ((Player) player).sendMessage(Methods.colour("&aYou levelled up! " +
+                            "You are now level " + this.getLevel(player) + "!"));
+                    ((Player) player).sendMessage(Methods.colour("&aYou gained 10 tokens!"));
+                }
             }
             this.setExp(player, exp);
         }
@@ -169,6 +183,60 @@ public class PlayerDataHandler implements IPlayerDataHandler {
         JSONObject json = this.getPlayerData(player).getDataObject();
         json.put("chat-color", String.valueOf(chatColor.getChar()));
         this.getPlayerData(player).saveFile(json);
+    }
+
+    @Override
+    public void setBlocksBroken(OfflinePlayer player, int blocks) {
+        JSONObject json = this.getPlayerData(player).getDataObject();
+        json.put("blocks-broken", String.valueOf(blocks));
+        this.getPlayerData(player).saveFile(json);
+    }
+
+    @Override
+    public int getBlocksBroken(OfflinePlayer player) {
+        try {
+            return (int) this.getPlayerData(player).getDataObject().get("blocks-broken");
+        } catch (NumberFormatException | NullPointerException e) {
+            this.setBlocksBroken(player, 0);
+            return this.getBlocksBroken(player);
+        }
+    }
+
+    @Override
+    public void setMinutes(OfflinePlayer player, int minutes) {
+        JSONObject json = this.getPlayerData(player).getDataObject();
+        json.put("minutes", String.valueOf(minutes));
+        this.getPlayerData(player).saveFile(json);
+    }
+
+    @Override
+    public int getMinutes(OfflinePlayer player) {
+        try {
+            return (int) this.getPlayerData(player).getDataObject().get("minutes");
+        } catch (NumberFormatException | NullPointerException e) {
+            this.setMinutes(player, 0);
+            return this.getMinutes(player);
+        }
+    }
+
+    @Override
+    public void incrementTick(OfflinePlayer player) {
+        if (!this.playerTicks.containsKey(player.getUniqueId())) {
+            this.playerTicks.put(player.getUniqueId(), 1);
+            return;
+        }
+        int ticks = this.playerTicks.get(player.getUniqueId());
+        ticks++;
+        if (ticks > 1200) {
+            this.setMinutes(player, this.getMinutes(player) + 1);
+            ticks -= 1200;
+            if (player instanceof Player) {
+                if (this.getMinutes(player) % 60 == 0) {
+                    PlayerStats.instance.ontimeReward((Player) player);
+                }
+            }
+        }
+        this.playerTicks.put(player.getUniqueId(), ticks);
     }
 
 }

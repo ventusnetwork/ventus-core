@@ -5,9 +5,6 @@ import com.pyropoops.ventuscore.command.GetItemCommand;
 import com.pyropoops.ventuscore.command.MainMenuCMD;
 import com.pyropoops.ventuscore.config.ConfigHandler;
 import com.pyropoops.ventuscore.data.PlayerDataHandler;
-import com.pyropoops.ventuscore.item.Item;
-import com.pyropoops.ventuscore.item.movement.NimbusBroomItem;
-import com.pyropoops.ventuscore.player.PlayerStats;
 import com.pyropoops.ventuscore.gui.MenuGUI;
 import com.pyropoops.ventuscore.helper.PluginHelper;
 import com.pyropoops.ventuscore.item.armour.ScubaArmour;
@@ -16,14 +13,15 @@ import com.pyropoops.ventuscore.item.combat.TrackingBowItem;
 import com.pyropoops.ventuscore.item.misc.GenanItem;
 import com.pyropoops.ventuscore.item.movement.GrapplingHookItem;
 import com.pyropoops.ventuscore.item.movement.MagicCarpetItem;
+import com.pyropoops.ventuscore.item.movement.NimbusBroomItem;
 import com.pyropoops.ventuscore.item.movement.RocketBootsItem;
 import com.pyropoops.ventuscore.permission.PermissionManager;
+import com.pyropoops.ventuscore.player.PlayerStats;
 import com.pyropoops.ventuscore.utils.TickUpdaterHandler;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Collections;
-import java.util.Comparator;
 
 public final class VentusCore extends JavaPlugin {
     public static VentusCore instance;

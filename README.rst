@@ -6,7 +6,6 @@ Author: pyropoops
 TODO List
 ---------
 
-* Add a way to gain exp and implement that into PlayerStats
 * Finish all the GUI menus
 * Add drill pickaxe
 * Add exp as a module in the JSON data - required exp = (nextLevel * 1000) exp to level up
