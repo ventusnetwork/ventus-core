@@ -155,7 +155,7 @@ public class PlayerDataHandler implements IPlayerDataHandler {
                 this.setTokens(player, this.getTokens(player) + 10);
                 if (player instanceof Player) {
                     ((Player) player).sendMessage(Methods.colour("&aYou levelled up! " +
-                            "You are now level " + this.getLevel(player) + "!"));
+                            "You are now level &2" + this.getLevel(player) + "&a!"));
                     ((Player) player).sendMessage(Methods.colour("&aYou gained 10 tokens!"));
                 }
             }
