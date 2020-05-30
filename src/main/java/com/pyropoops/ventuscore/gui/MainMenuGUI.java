@@ -101,7 +101,7 @@ public class MainMenuGUI extends MenuGUI {
                 exit.setItemMeta(exitMeta);
                 inventory.setItem(i, exit);
             } else {
-                inventory.setItem(i, new ItemStack(Material.BLACK_STAINED_GLASS_PANE, 1));
+                inventory.setItem(i, filler);
             }
         }
         return inventory;
@@ -126,7 +126,6 @@ public class MainMenuGUI extends MenuGUI {
     }
 
     private void warps(Player player) {
-        // TODO
         player.openInventory(warpsGUI.inventory);
     }
 
@@ -160,6 +159,6 @@ public class MainMenuGUI extends MenuGUI {
     private void discord(Player player) {
         player.closeInventory();
         if (VentusCore.permissionManager.hasPermission(player, Permissions.DISCORD.value(), true, false))
-            player.sendMessage(Methods.colour("&9You can find our discord at: n&nhttp://discord.ventusnetwork.net/"));
+            player.sendMessage(Methods.colour("&9You can find our discord at: &nhttp://discord.ventusnetwork.net/"));
     }
 }

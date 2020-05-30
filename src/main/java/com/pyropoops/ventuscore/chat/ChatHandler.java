@@ -21,11 +21,15 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 public class ChatHandler implements Listener {
     public static ChatHandler instance = null;
     public List<String> swearWords;
+
+    public static HashMap<UUID, String> rainbowChatters;
 
     private ArrayList<AsyncPlayerChatEvent> chatEvents;
 
@@ -34,6 +38,8 @@ public class ChatHandler implements Listener {
     public ChatHandler() {
         PluginHelper.registerListener(this);
         this.swearWords = ConfigHandler.mainConfig.getConfig().getStringList("swear-words");
+
+        rainbowChatters = new HashMap<>();
 
         this.chatEvents = new ArrayList<>();
 
@@ -59,14 +65,14 @@ public class ChatHandler implements Listener {
             BigDecimal money = ess.getUser(player).getMoney();
             if (money.doubleValue() > 0) {
                 DecimalFormat decimalFormat = new DecimalFormat("#,###.00");
-                s += "&bBalance: $" + decimalFormat.format(money) + "\n";
+                s += "&b» Balance: &7$" + decimalFormat.format(money) + "\n";
             } else {
-                s += "&bBalance: $0\n";
+                s += "&b» Balance: &7$0\n";
             }
         }
-        s += "&bTokens: " + dataHandler.getTokens(player) + "\n";
-        s += "&bLevel: " + dataHandler.getLevel(player) + "\n";
-        s += "&bKills: " + dataHandler.getKills(player);
+        s += "&b» Tokens: &7" + dataHandler.getTokens(player) + "\n";
+        s += "&b» Level: &7" + dataHandler.getLevel(player) + "\n";
+        s += "&b» Kills: &7" + dataHandler.getKills(player);
         return s;
     }
 
@@ -84,8 +90,10 @@ public class ChatHandler implements Listener {
             builder.event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/msg " + e.getPlayer().getName() + " "))
                     .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Methods.colour(playerInfo)).create())).append(TextComponent.fromLegacyText(e.getPlayer().getDisplayName()));
 
+            String message = rainbowChatters.containsKey(e.getPlayer().getUniqueId()) ? rainbow(e.getMessage(), rainbowChatters.get(e.getPlayer().getUniqueId())) : e.getMessage();
+
             builder.reset().append(TextComponent.fromLegacyText(Methods.colour("&7 » ")
-                    + VentusCore.instance.playerDataHandler.getChatColor(e.getPlayer()) + e.getMessage()));
+                    + VentusCore.instance.playerDataHandler.getChatColor(e.getPlayer()) + message));
 
             for (Player p : VentusCore.instance.getServer().getOnlinePlayers()) {
                 p.spigot().sendMessage(builder.create());
@@ -134,6 +142,26 @@ public class ChatHandler implements Listener {
 
     private boolean playerBypassChat(Player player) {
         return VentusCore.permissionManager.hasPermission(player, Permissions.CHAT_BYPASS.value(), false, false);
+    }
+
+    private String rainbow(String s, String sequenceString) {
+        s = ChatColor.stripColor(s);
+        StringBuilder rainbowChat = new StringBuilder();
+        char[] sequence = sequenceString.toCharArray();
+        int color = 0;
+        ChatColor chatColor;
+        for (int i = 0; i < s.length(); i++) {
+            if (color >= sequence.length) {
+                color = 0;
+            }
+            chatColor = ChatColor.getByChar(sequence[color]);
+            if (chatColor == null) {
+                return s;
+            }
+            color++;
+            rainbowChat.append(chatColor).append(s.charAt(i));
+        }
+        return rainbowChat.toString();
     }
 
 }

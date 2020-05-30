@@ -1,8 +1,10 @@
 package com.pyropoops.ventuscore;
 
 import com.pyropoops.ventuscore.chat.ChatHandler;
-import com.pyropoops.ventuscore.command.GetItemCommand;
+import com.pyropoops.ventuscore.command.GetItemCMD;
 import com.pyropoops.ventuscore.command.MainMenuCMD;
+import com.pyropoops.ventuscore.command.RainbowChatCMD;
+import com.pyropoops.ventuscore.command.ReloadCMD;
 import com.pyropoops.ventuscore.config.ConfigHandler;
 import com.pyropoops.ventuscore.data.PlayerDataHandler;
 import com.pyropoops.ventuscore.gui.MenuGUI;
@@ -58,14 +60,22 @@ public final class VentusCore extends JavaPlugin {
         ChatHandler.register();
     }
 
+    public static void reload() {
+        instance.getServer().getPluginManager().disablePlugin(instance);
+        instance.getServer().getPluginManager().enablePlugin(instance);
+    }
+
     private void registerCommands() {
-        GetItemCommand getItemCommand = new GetItemCommand();
+        GetItemCMD getItemCommand = new GetItemCMD();
         PluginHelper.registerCommand("getitem", getItemCommand);
         getCommand("getitem").setTabCompleter(getItemCommand);
 
         PluginCommand menuCmd = PluginHelper.getCommand("mainmenu", new MainMenuCMD());
         menuCmd.setAliases(Collections.singletonList("menu"));
         PluginHelper.registerCommand("mainmenu", menuCmd);
+
+        PluginHelper.registerCommand("rainbowchat", new RainbowChatCMD());
+        PluginHelper.registerCommand("reloadventus", new ReloadCMD());
     }
 
     private void registerData() {

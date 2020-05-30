@@ -28,6 +28,7 @@ public class SpecialItemsGUI extends MenuGUI {
     public Inventory constructMenu(Player player, int page) {
         Inventory inventory = Bukkit.createInventory(null, 9, this.getId());
         int itemIndex = (page - 1) * 8;
+
         for (int i = 0; i < inventory.getSize(); i++) {
             if (i == 8) {
                 ItemStack pageItem = new ItemStack(Material.PAPER, 1);
@@ -52,8 +53,7 @@ public class SpecialItemsGUI extends MenuGUI {
                 inventory.setItem(i, itemStack);
                 itemIndex++;
             } else {
-                ItemStack itemStack = new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1);
-                inventory.setItem(i, itemStack);
+                inventory.setItem(i, filler);
             }
         }
         return inventory;
@@ -118,7 +118,8 @@ public class SpecialItemsGUI extends MenuGUI {
             Item item = getItemFromDisplay(meta.getDisplayName());
             if (item != null) {
                 purchase(player, item);
-                player.closeInventory();
+                if (type == ClickType.LEFT)
+                    player.closeInventory();
             }
         } else {
             int page = this.pages.get(meta.getDisplayName());

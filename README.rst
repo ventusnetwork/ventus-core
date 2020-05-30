@@ -8,10 +8,8 @@ TODO List
 
 * Finish all the GUI menus
 * Add drill pickaxe
-* Add modules into items such as tracking bow being mountable, and player-only (/modifyitem)
-* Add item where you can pick people up and carry them, and throw them with a 0.99x tick multiplier
-* Add custom mob drops
 * Do item lores
+* Rename rainbowchat to /sequencechat
 
 Add commands:
 
@@ -21,7 +19,11 @@ Add commands:
 
     /playtime <set|get> player [<amount>]
 
-Item Ideas:
------------
+Ideas:
+------
 
+* Chatgames
+* Add modules into items such as tracking bow being mountable, and player-only (/modifyitem)
+* Add item where you can pick people up and carry them, and throw them with a 0.99x tick multiplier
+* Add custom mob drops
 * Floopowder

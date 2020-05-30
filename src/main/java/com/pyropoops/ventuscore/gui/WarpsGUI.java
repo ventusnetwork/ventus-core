@@ -9,6 +9,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,6 +24,8 @@ public class WarpsGUI extends MenuGUI {
         this.items = new HashMap<>();
         this.warpNames = new HashMap<>();
 
+        this.initWarps();
+
         this.inventory = this.constructMenu(null);
     }
 
@@ -31,8 +34,12 @@ public class WarpsGUI extends MenuGUI {
         Inventory inventory = Bukkit.createInventory(null, 9, this.getId());
 
         for (int i : items.keySet()) {
-            ItemStack item = items.get(i);
-            inventory.setItem(i, item);
+            if (items.containsKey(i)) {
+                ItemStack item = items.get(i);
+                inventory.setItem(i, item);
+            } else {
+                inventory.setItem(i, filler);
+            }
         }
 
         return inventory;
@@ -58,6 +65,5 @@ public class WarpsGUI extends MenuGUI {
     }
 
     private void initWarps() {
-
     }
 }

@@ -4,12 +4,15 @@ import com.pyropoops.ventuscore.gui.tokens.EnchantsGUI;
 import com.pyropoops.ventuscore.gui.tokens.SpecialItemsGUI;
 import com.pyropoops.ventuscore.gui.tokens.TokensGUI;
 import com.pyropoops.ventuscore.helper.PluginHelper;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public abstract class MenuGUI implements Listener {
     public static MainMenuGUI mainMenuGUI;
@@ -19,6 +22,8 @@ public abstract class MenuGUI implements Listener {
     public static SpecialItemsGUI specialItemsGUI;
 
     private String id;
+
+    protected static ItemStack filler;
 
     public MenuGUI(String id) {
         this.id = id;
@@ -50,6 +55,11 @@ public abstract class MenuGUI implements Listener {
     public abstract void handleInventoryClick(Player player, int slot, ClickType type);
 
     public static void registerMenus() {
+        filler = new ItemStack(Material.BLACK_STAINED_GLASS_PANE, 1);
+        ItemMeta fillerMeta = filler.getItemMeta();
+        fillerMeta.setDisplayName(" ");
+        filler.setItemMeta(fillerMeta);
+
         mainMenuGUI = new MainMenuGUI();
         tokensGUI = new TokensGUI();
         enchantsGUI = new EnchantsGUI();

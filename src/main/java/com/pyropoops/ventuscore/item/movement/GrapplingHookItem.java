@@ -121,7 +121,7 @@ public class GrapplingHookItem extends Item implements Listener {
                         Vector direction = arrow.getLocation().toVector()
                                 .subtract(entity.getLocation().toVector()).normalize();
                         entity.setVelocity(direction.multiply(1.2D));
-                        drawLine(e.getEntity().getLocation(),
+                            drawLine(e.getEntity().getLocation(),
                                 arrow.getLocation(), 0.1D, new Vector(0, 1, 0));
                     }
                 }

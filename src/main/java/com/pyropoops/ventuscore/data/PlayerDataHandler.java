@@ -152,11 +152,11 @@ public class PlayerDataHandler implements IPlayerDataHandler {
             if (exp >= levelUpExp) {
                 exp -= levelUpExp;
                 this.setLevel(player, this.getLevel(player) + 1);
-                this.setTokens(player, this.getTokens(player) + 10);
+                this.setTokens(player, this.getTokens(player) + 20);
                 if (player instanceof Player) {
                     ((Player) player).sendMessage(Methods.colour("&aYou levelled up! " +
                             "You are now level &2" + this.getLevel(player) + "&a!"));
-                    ((Player) player).sendMessage(Methods.colour("&aYou gained 10 tokens!"));
+                    ((Player) player).sendMessage(Methods.colour("&aYou gained 20 tokens!"));
                 }
             }
             this.setExp(player, exp);
@@ -195,7 +195,7 @@ public class PlayerDataHandler implements IPlayerDataHandler {
     @Override
     public int getBlocksBroken(OfflinePlayer player) {
         try {
-            return (int) this.getPlayerData(player).getDataObject().get("blocks-broken");
+            return Integer.parseInt((String) this.getPlayerData(player).getDataObject().get("blocks-broken"));
         } catch (NumberFormatException | NullPointerException e) {
             this.setBlocksBroken(player, 0);
             return this.getBlocksBroken(player);
@@ -212,7 +212,7 @@ public class PlayerDataHandler implements IPlayerDataHandler {
     @Override
     public int getMinutes(OfflinePlayer player) {
         try {
-            return (int) this.getPlayerData(player).getDataObject().get("minutes");
+            return Integer.parseInt((String) this.getPlayerData(player).getDataObject().get("minutes"));
         } catch (NumberFormatException | NullPointerException e) {
             this.setMinutes(player, 0);
             return this.getMinutes(player);
@@ -230,6 +230,7 @@ public class PlayerDataHandler implements IPlayerDataHandler {
         if (ticks > 1200) {
             this.setMinutes(player, this.getMinutes(player) + 1);
             ticks -= 1200;
+            this.addExp(player, 1000D / 30D);
             if (player instanceof Player) {
                 if (this.getMinutes(player) % 60 == 0) {
                     PlayerStats.instance.ontimeReward((Player) player);

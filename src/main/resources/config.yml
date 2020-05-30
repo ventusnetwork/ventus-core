@@ -1,4 +1,5 @@
 default-tokens: 100
+rainbow-sequence: "abcdef"
 swear-words:
   - fuck
   - shit
