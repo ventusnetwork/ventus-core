@@ -1,7 +1,6 @@
 package com.pyropoops.ventuscore.item.combat;
 
 import com.pyropoops.ventuscore.item.Item;
-import com.pyropoops.ventuscore.nms.NMSHandler;
 import com.pyropoops.ventuscore.utils.Methods;
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -12,7 +11,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import java.util.Arrays;
@@ -25,12 +23,12 @@ public class BackstabberItem extends Item implements Listener {
     private HashMap<Player, Long> cooldownTime;
 
     public BackstabberItem() {
-        super("backstabber", Material.DIAMOND_SWORD, (short) 0, Methods.colour("&4&lBACKSTABBER"), generateLore());
+        super("backstabber", Material.DIAMOND_SWORD, (short) 0, Methods.color("&4&lBACKSTABBER"), generateLore());
         cooldownTime = new HashMap<>();
     }
 
     private static List<String> generateLore() {
-        return Arrays.asList(Methods.colour("&cTier 3"), Methods.colour("&cSneak-hit to teleport behind"), Methods.colour("&cyour opponent!"));
+        return Arrays.asList(Methods.color("&cTier 3"), Methods.color("&cSneak-hit to teleport behind"), Methods.color("&cyour opponent!"));
     }
 
     @EventHandler
@@ -48,7 +46,7 @@ public class BackstabberItem extends Item implements Listener {
             long now = System.currentTimeMillis();
             if (cooldownTime.containsKey(player) && cooldownTime.get(player) + cooldown > now) {
                 int seconds = (int) ((cooldownTime.get(player) + cooldown - now) / 1000);
-                player.sendMessage(Methods.colour("&cYou cannot do that yet! You have " +
+                player.sendMessage(Methods.color("&cYou cannot do that yet! You have " +
                         seconds + " seconds left on your cooldown!"));
                 return false;
             }

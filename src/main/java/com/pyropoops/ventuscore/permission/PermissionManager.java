@@ -13,7 +13,7 @@ public class PermissionManager {
             noPermissionMessage = ChatColor.RED + "I'm sorry, but you do not have permission to perform this command." +
                     " Please contact the server administrators if you believe that this is in error.";
         }
-        this.noPermissionMessage = Methods.colour(noPermissionMessage);
+        this.noPermissionMessage = Methods.color(noPermissionMessage);
     }
     // The message sent to players that lack a certain permission
     public boolean hasPermission(CommandSender sender, String requiredPermissionNode, boolean sendMessage, boolean sendNode) {
@@ -21,7 +21,7 @@ public class PermissionManager {
             if (sendMessage) {
                 String message = noPermissionMessage;
                 if (sendNode) {
-                    message += Methods.colour(" &cYou need the permission node &4" + requiredPermissionNode.toLowerCase() + "&c!");
+                    message += Methods.color(" &cYou need the permission node &4" + requiredPermissionNode.toLowerCase() + "&c!");
                 }
                 sender.sendMessage(message);
             }

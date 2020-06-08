@@ -15,7 +15,7 @@ public class ReloadCMD implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!VentusCore.permissionManager.hasPermission(sender, Permissions.RELOAD.value(), true, false)) return true;
         VentusCore.reload();
-        sender.sendMessage(Methods.colour("&aVentus-Core Plugin Reloaded Successfully."));
+        sender.sendMessage(Methods.color("&aVentus-Core Plugin Reloaded Successfully."));
         return true;
     }
 

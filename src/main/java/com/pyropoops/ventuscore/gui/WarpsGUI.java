@@ -9,7 +9,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,7 +18,7 @@ public class WarpsGUI extends MenuGUI {
     private HashMap<Integer, String> warpNames;
 
     public WarpsGUI() {
-        super(Methods.colour("&2&lVENTUS - WARPS"));
+        super(Methods.color("&2&lVENTUS - WARPS"));
 
         this.items = new HashMap<>();
         this.warpNames = new HashMap<>();

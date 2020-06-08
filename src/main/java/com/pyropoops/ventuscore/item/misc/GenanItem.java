@@ -19,7 +19,7 @@ public class GenanItem extends Item implements Listener {
     private double range = 30D;
 
     public GenanItem() {
-        super("genanbow", Material.BOW, (short) 0, Methods.colour("&d&lGENAN BOW!"), generateLore());
+        super("genanbow", Material.BOW, (short) 0, Methods.color("&d&lGENAN BOW!"), generateLore());
     }
 
     public static List<String> generateLore() {

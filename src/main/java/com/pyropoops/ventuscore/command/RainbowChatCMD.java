@@ -16,21 +16,21 @@ public class RainbowChatCMD implements CommandExecutor {
         if (!VentusCore.permissionManager.hasPermission(sender, Permissions.RAINBOW_CHAT.value(), true, false))
             return true;
         if (!(sender instanceof Player)) {
-            sender.sendMessage(Methods.colour("&cYou must be a player for this!"));
+            sender.sendMessage(Methods.color("&cYou must be a player for this!"));
             return true;
         }
         Player player = (Player) sender;
         if (args.length == 0) {
             if (ChatHandler.rainbowChatters.containsKey(player.getUniqueId())) {
                 ChatHandler.rainbowChatters.remove(player.getUniqueId());
-                player.sendMessage(Methods.colour("&4&lVENTUS &7» &cYour chat is no longer rainbow."));
+                player.sendMessage(Methods.color("&4&lVENTUS &7» &cYour chat is no longer rainbow."));
             } else {
                 ChatHandler.rainbowChatters.put(player.getUniqueId(), ConfigHandler.mainConfig.getConfig().getString("rainbow-sequence"));
-                player.sendMessage(Methods.colour("&4&lVENTUS &7» &aYour chat is now in rainbow."));
+                player.sendMessage(Methods.color("&4&lVENTUS &7» &aYour chat is now in rainbow."));
             }
         } else {
             ChatHandler.rainbowChatters.put(player.getUniqueId(), args[0]);
-            player.sendMessage(Methods.colour("&4&lVENTUS &7» &aYour chat is now in rainbow."));
+            player.sendMessage(Methods.color("&4&lVENTUS &7» &aYour chat is now in rainbow."));
         }
         return true;
     }

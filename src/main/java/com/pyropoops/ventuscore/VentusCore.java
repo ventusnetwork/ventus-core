@@ -9,6 +9,7 @@ import com.pyropoops.ventuscore.config.ConfigHandler;
 import com.pyropoops.ventuscore.data.PlayerDataHandler;
 import com.pyropoops.ventuscore.gui.MenuGUI;
 import com.pyropoops.ventuscore.helper.PluginHelper;
+import com.pyropoops.ventuscore.item.armour.HelmetOfHades;
 import com.pyropoops.ventuscore.item.armour.ScubaArmour;
 import com.pyropoops.ventuscore.item.combat.BackstabberItem;
 import com.pyropoops.ventuscore.item.combat.TrackingBowItem;
@@ -101,6 +102,9 @@ public final class VentusCore extends JavaPlugin {
         new MagicCarpetItem();
         new GenanItem();
         new NimbusBroomItem();
+
+        // Tier 6
+        new HelmetOfHades();
     }
 
     private void registerConfigs() {

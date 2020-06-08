@@ -24,13 +24,13 @@ public class RocketBootsItem extends Item implements IPlayerTickUpdater, Listene
     private String fuelKey = "rocket-fuel";
 
     public RocketBootsItem() {
-        super("rocket-boots", Material.DIAMOND_BOOTS, (short) 0, Methods.colour("&4&lROCKET BOOTS"), generateLore());
+        super("rocket-boots", Material.DIAMOND_BOOTS, (short) 0, Methods.color("&4&lROCKET BOOTS"), generateLore());
         VentusCore.tickUpdaterHandler.register(this);
     }
 
     private static List<String> generateLore() {
-        return Arrays.asList(Methods.colour("&6Tier 2"), Methods.colour("&6Fly around with these boots!"),
-                Methods.colour("&6Fast but dangerous!"));
+        return Arrays.asList(Methods.color("&6Tier 2"), Methods.color("&6Fly around with these boots!"),
+                Methods.color("&6Fast but dangerous!"));
     }
 
     @Override
@@ -70,7 +70,7 @@ public class RocketBootsItem extends Item implements IPlayerTickUpdater, Listene
                 boots.setDurability(durability);
                 player.getInventory().setBoots(boots);
             } else {
-                player.sendMessage(Methods.colour("&cYour Rocket Boots have ran out of fuel!"));
+                player.sendMessage(Methods.color("&cYour Rocket Boots have ran out of fuel!"));
             }
         }
     }

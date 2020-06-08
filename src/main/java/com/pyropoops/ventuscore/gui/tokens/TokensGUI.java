@@ -15,7 +15,7 @@ import java.util.Arrays;
 
 public class TokensGUI extends MenuGUI {
     public TokensGUI() {
-        super(Methods.colour("&2&lVENTUS TOKENS"));
+        super(Methods.color("&2&lVENTUS TOKENS"));
     }
 
     @Override
@@ -26,15 +26,15 @@ public class TokensGUI extends MenuGUI {
                 // Enchanted book - &3&lENCHANTS
                 ItemStack enchants = new ItemStack(Material.ENCHANTED_BOOK, 1);
                 ItemMeta enchantsMeta = enchants.getItemMeta();
-                enchantsMeta.setDisplayName(Methods.colour("&3&lENCHANTS"));
+                enchantsMeta.setDisplayName(Methods.color("&3&lENCHANTS"));
                 enchants.setItemMeta(enchantsMeta);
                 inventory.setItem(i, enchants);
             } else if (i == 13) {
                 // Emerald - &2&lTOKENS - &aYou have {tokens} tokens!
                 ItemStack tokens = new ItemStack(Material.EMERALD, 1);
                 ItemMeta tokensMeta = tokens.getItemMeta();
-                tokensMeta.setDisplayName(Methods.colour("&2&lTOKENS"));
-                tokensMeta.setLore(Arrays.asList(Methods.colour("&aYou have " +
+                tokensMeta.setDisplayName(Methods.color("&2&lTOKENS"));
+                tokensMeta.setLore(Arrays.asList(Methods.color("&aYou have " +
                         VentusCore.instance.playerDataHandler.getTokens(player) + " tokens!")));
                 tokens.setItemMeta(tokensMeta);
                 inventory.setItem(i, tokens);
@@ -42,7 +42,7 @@ public class TokensGUI extends MenuGUI {
                 // Nether Star - &7&lSPECIAL ITEMS
                 ItemStack items = new ItemStack(Material.NETHER_STAR, 1);
                 ItemMeta itemsMeta = items.getItemMeta();
-                itemsMeta.setDisplayName(Methods.colour("&7&lSPECIAL ITEMS"));
+                itemsMeta.setDisplayName(Methods.color("&7&lSPECIAL ITEMS"));
                 items.setItemMeta(itemsMeta);
                 inventory.setItem(i, items);
             } else {

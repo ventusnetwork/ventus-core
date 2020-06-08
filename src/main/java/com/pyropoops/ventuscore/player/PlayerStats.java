@@ -66,7 +66,7 @@ public class PlayerStats implements Listener, IPlayerTickUpdater {
     }
 
     public void ontimeReward(Player player) {
-        player.sendMessage(Methods.colour("&aYou played for an hour and received 20 tokens!"));
+        player.sendMessage(Methods.color("&aYou played for an hour and received 20 tokens!"));
         dataHandler.setTokens(player, dataHandler.getTokens(player) + 20);
         dataHandler.addExp(player, 1000);
     }

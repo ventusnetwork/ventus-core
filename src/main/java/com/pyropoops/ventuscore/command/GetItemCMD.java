@@ -27,7 +27,7 @@ public class GetItemCMD implements CommandExecutor, TabCompleter {
 
         Item item = Item.getItem(args[0]);
         if (item == null) {
-            sender.sendMessage(Methods.colour("&cError: &4Could not find that item!"));
+            sender.sendMessage(Methods.color("&cError: &4Could not find that item!"));
             return true;
         }
 
@@ -43,25 +43,25 @@ public class GetItemCMD implements CommandExecutor, TabCompleter {
 
         Player target = Bukkit.getPlayer(args[1]);
         if (target == null) {
-            Methods.colour("&cError: &4Could not find that player!");
+            Methods.color("&cError: &4Could not find that player!");
             return true;
         }
-        sender.sendMessage(Methods.colour("&aYou have given &7" + target.getName() + "&a the item: &7" + item.getDisplayName() + "&a!"));
+        sender.sendMessage(Methods.color("&aYou have given &7" + target.getName() + "&a the item: &7" + item.getDisplayName() + "&a!"));
         givePlayerItem(target, item);
         return true;
     }
 
     private void givePlayerItem(Player player, Item item) {
         player.getInventory().addItem(item.getItem());
-        player.sendMessage(Methods.colour("&aYou have received the item: &7" + item.getDisplayName() + "&a!"));
+        player.sendMessage(Methods.color("&aYou have received the item: &7" + item.getDisplayName() + "&a!"));
     }
 
     private void correctUsage(CommandSender sender) {
         String message;
         if (sender instanceof Player) {
-            message = Methods.colour("&cCorrect Usage - /getitem <item name> [player]");
+            message = Methods.color("&cCorrect Usage - /getitem <item name> [player]");
         } else {
-            message = Methods.colour("&cCorrect Usage - /getitem <item name> <player>");
+            message = Methods.color("&cCorrect Usage - /getitem <item name> <player>");
         }
         sender.sendMessage(message);
     }

@@ -19,7 +19,7 @@ public class MainMenuCMD implements CommandExecutor {
 
     private void menu(CommandSender sender) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(Methods.colour("&cYou must be a player to run this command!"));
+            sender.sendMessage(Methods.color("&cYou must be a player to run this command!"));
             return;
         }
         Player player = (Player) sender;

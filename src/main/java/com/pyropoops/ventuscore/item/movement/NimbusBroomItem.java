@@ -19,12 +19,12 @@ import java.util.List;
 
 public class NimbusBroomItem extends Item implements Listener {
     public NimbusBroomItem() {
-        super("nimbus-broom", Material.WOODEN_SHOVEL, (short) 0, Methods.colour("&4&lNIMBUS 2000"), generateLore());
+        super("nimbus-broom", Material.WOODEN_SHOVEL, (short) 0, Methods.color("&4&lNIMBUS 2000"), generateLore());
     }
 
     private static List<String> generateLore() {
-        return Arrays.asList(Methods.colour("&cTier 5"),Methods.colour("&cFly around like Harry Potter!"),
-                Methods.colour("&cLight-speed!"));
+        return Arrays.asList(Methods.color("&cTier 5"),Methods.color("&cFly around like Harry Potter!"),
+                Methods.color("&cLight-speed!"));
     }
 
     @EventHandler

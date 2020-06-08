@@ -29,13 +29,13 @@ public class GrapplingHookItem extends Item implements Listener {
     private ArrayList<Entity> grappleArrowDamageEvents;
 
     public GrapplingHookItem() {
-        super("grapplinghook", Material.BOW, (short) 0, Methods.colour("&2&lGRAPPLING HOOK"), generateLore());
+        super("grapplinghook", Material.BOW, (short) 0, Methods.color("&2&lGRAPPLING HOOK"), generateLore());
         grappleArrows = new HashMap<>();
         grappleArrowDamageEvents = new ArrayList<>();
     }
 
     public static List<String> generateLore() {
-        return Arrays.asList(Methods.colour("&aTier 4"), Methods.colour("&aUse this to grapple from place to place!"));
+        return Arrays.asList(Methods.color("&aTier 4"), Methods.color("&aUse this to grapple from place to place!"));
     }
 
     @Override

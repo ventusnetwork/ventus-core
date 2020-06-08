@@ -24,7 +24,7 @@ public class EnchantsGUI extends MenuGUI {
     private HashMap<Enchantment, Integer> prices;
 
     public EnchantsGUI() {
-        super(Methods.colour("&3&lVENTUS ENCHANTS"));
+        super(Methods.color("&3&lVENTUS ENCHANTS"));
 
         data = VentusCore.instance.playerDataHandler;
 
@@ -46,8 +46,8 @@ public class EnchantsGUI extends MenuGUI {
                 // protection I
                 ItemStack protection = new ItemStack(Material.ENCHANTED_BOOK, 1);
                 ItemMeta protectionMeta = protection.getItemMeta();
-                protectionMeta.setDisplayName(Methods.colour("&3&lPROTECTION I"));
-                protectionMeta.setLore(Collections.singletonList(Methods.colour
+                protectionMeta.setDisplayName(Methods.color("&3&lPROTECTION I"));
+                protectionMeta.setLore(Collections.singletonList(Methods.color
                         ("&aPrice: &2" + prices.get(Enchantment.PROTECTION_ENVIRONMENTAL) + " tokens")));
                 protection.setItemMeta(protectionMeta);
                 inventory.setItem(i, protection);
@@ -55,8 +55,8 @@ public class EnchantsGUI extends MenuGUI {
                 // sharpness I
                 ItemStack sharpness = new ItemStack(Material.ENCHANTED_BOOK, 1);
                 ItemMeta sharpnessMeta = sharpness.getItemMeta();
-                sharpnessMeta.setDisplayName(Methods.colour("&3&lSHARPNESS I"));
-                sharpnessMeta.setLore(Collections.singletonList(Methods.colour
+                sharpnessMeta.setDisplayName(Methods.color("&3&lSHARPNESS I"));
+                sharpnessMeta.setLore(Collections.singletonList(Methods.color
                         ("&aPrice: &2" + prices.get(Enchantment.DAMAGE_ALL) + " tokens")));
                 sharpness.setItemMeta(sharpnessMeta);
                 inventory.setItem(i, sharpness);
@@ -64,8 +64,8 @@ public class EnchantsGUI extends MenuGUI {
                 // efficiency I
                 ItemStack efficiency = new ItemStack(Material.ENCHANTED_BOOK, 1);
                 ItemMeta efficiencyMeta = efficiency.getItemMeta();
-                efficiencyMeta.setDisplayName(Methods.colour("&3&lEFFICIENCY I"));
-                efficiencyMeta.setLore(Collections.singletonList(Methods.colour
+                efficiencyMeta.setDisplayName(Methods.color("&3&lEFFICIENCY I"));
+                efficiencyMeta.setLore(Collections.singletonList(Methods.color
                         ("&aPrice: &2" + prices.get(Enchantment.DIG_SPEED) + " tokens")));
                 efficiency.setItemMeta(efficiencyMeta);
                 inventory.setItem(i, efficiency);
@@ -73,8 +73,8 @@ public class EnchantsGUI extends MenuGUI {
                 // silk touch I
                 ItemStack silk = new ItemStack(Material.ENCHANTED_BOOK, 1);
                 ItemMeta silkMeta = silk.getItemMeta();
-                silkMeta.setDisplayName(Methods.colour("&3&lSILK TOUCH I"));
-                silkMeta.setLore(Collections.singletonList(Methods.colour
+                silkMeta.setDisplayName(Methods.color("&3&lSILK TOUCH I"));
+                silkMeta.setLore(Collections.singletonList(Methods.color
                         ("&aPrice: &2" + prices.get(Enchantment.SILK_TOUCH) + " tokens")));
                 silk.setItemMeta(silkMeta);
                 inventory.setItem(i, silk);
@@ -100,13 +100,13 @@ public class EnchantsGUI extends MenuGUI {
             meta.addStoredEnchant(enchantment, 1, true);
             i.setItemMeta(meta);
             player.getInventory().addItem(i);
-            player.sendMessage(Methods.colour("&aItem bought successfully!"));
+            player.sendMessage(Methods.color("&aItem bought successfully!"));
         }
     }
 
     private boolean handlePrice(Player player, int price) {
         if (data.getTokens(player) < price) {
-            player.sendMessage(Methods.colour("&cError: &4You do not have enough tokens for that!"));
+            player.sendMessage(Methods.color("&cError: &4You do not have enough tokens for that!"));
             return false;
         }
         data.setTokens(player, data.getTokens(player) - price);

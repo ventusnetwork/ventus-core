@@ -15,7 +15,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,12 +22,12 @@ public class TrackingBowItem extends Item implements Listener {
     private double range = 50D;
 
     public TrackingBowItem() {
-        super("trackingbow", Material.BOW, (short) 0, Methods.colour("&6&lTRACKING BOW"), generateLore());
+        super("trackingbow", Material.BOW, (short) 0, Methods.color("&6&lTRACKING BOW"), generateLore());
     }
 
     public static List<String> generateLore() {
-        return Arrays.asList(Methods.colour("&eTier 4"),
-                Methods.colour("&eFire your arrow and sneak for your "), Methods.colour("&earrow to fly to the nearest entity!"));
+        return Arrays.asList(Methods.color("&eTier 4"),
+                Methods.color("&eFire your arrow and sneak for your "), Methods.color("&earrow to fly to the nearest entity!"));
     }
 
     @Override

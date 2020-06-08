@@ -12,7 +12,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,13 +25,13 @@ public class MagicCarpetItem extends Item implements Listener, IPlayerTickUpdate
 
 
     public MagicCarpetItem() {
-        super("magiccarpet", Material.BLUE_CARPET, (short) 0, Methods.colour("&b&l&oMAGIC CARPET"), generateLore());
+        super("magiccarpet", Material.BLUE_CARPET, (short) 0, Methods.color("&b&l&oMAGIC CARPET"), generateLore());
         users = new ArrayList<>();
         VentusCore.tickUpdaterHandler.register(this);
     }
 
     public static List<String> generateLore() {
-        return Arrays.asList(Methods.colour("&bTier 5"), Methods.colour("&bFly around!"));
+        return Arrays.asList(Methods.color("&bTier 5"), Methods.color("&bFly around!"));
     }
 
     @Override

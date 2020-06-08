@@ -21,7 +21,7 @@ public class SpecialItemsGUI extends MenuGUI {
     private HashMap<String, Integer> pages;
 
     public SpecialItemsGUI() {
-        super(Methods.colour("&3&lVENTUS SPECIAL ITEMS"));
+        super(Methods.color("&3&lVENTUS SPECIAL ITEMS"));
         this.pages = new HashMap<>();
     }
 
@@ -33,10 +33,10 @@ public class SpecialItemsGUI extends MenuGUI {
             if (i == 8) {
                 ItemStack pageItem = new ItemStack(Material.PAPER, 1);
                 ItemMeta pageMeta = pageItem.getItemMeta();
-                String display = Methods.colour("&c&lPAGE " + page + " - CHANGE PAGE");
+                String display = Methods.color("&c&lPAGE " + page + " - CHANGE PAGE");
                 this.pages.put(display, page);
                 pageMeta.setDisplayName(display);
-                pageMeta.setLore(Arrays.asList(Methods.colour("&cLeft Click: Next page"), Methods.colour("&cRight Click: Previous page")));
+                pageMeta.setLore(Arrays.asList(Methods.color("&cLeft Click: Next page"), Methods.color("&cRight Click: Previous page")));
                 pageItem.setItemMeta(pageMeta);
                 inventory.setItem(i, pageItem);
             } else if (itemIndex < Item.items.size() && !Item.items.get(itemIndex).isHidden()) {
@@ -47,8 +47,8 @@ public class SpecialItemsGUI extends MenuGUI {
                     ((Damageable) meta).damage(item.getData());
                 }
                 meta.setDisplayName(item.getDisplayName());
-                meta.setLore(Arrays.asList(Methods.colour("&cPrice: &4" + item.getPrice() + " tokens"),
-                        Methods.colour("&cTier: &4" + item.getTier())));
+                meta.setLore(Arrays.asList(Methods.color("&cPrice: &4" + item.getPrice() + " tokens"),
+                        Methods.color("&cTier: &4" + item.getTier())));
                 itemStack.setItemMeta(meta);
                 inventory.setItem(i, itemStack);
                 itemIndex++;
@@ -68,16 +68,16 @@ public class SpecialItemsGUI extends MenuGUI {
         int price = item.getPrice();
         PlayerDataHandler dataHandler = VentusCore.instance.playerDataHandler;
         if (dataHandler.getTokens(player) < price) {
-            player.sendMessage(Methods.colour("&cYou cannot afford that!"));
+            player.sendMessage(Methods.color("&cYou cannot afford that!"));
             return;
         }
         if (player.getInventory().firstEmpty() == -1) {
-            player.sendMessage(Methods.colour("&4Your inventory is full!"));
+            player.sendMessage(Methods.color("&4Your inventory is full!"));
             return;
         }
         dataHandler.setTokens(player, dataHandler.getTokens(player) - price);
         player.getInventory().addItem(item.getItem());
-        player.sendMessage(Methods.colour("&aPurchase successful!"));
+        player.sendMessage(Methods.color("&aPurchase successful!"));
     }
 
     private Item getItemFromDisplay(String displayName) {

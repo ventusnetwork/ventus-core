@@ -63,7 +63,7 @@ public abstract class Item implements IBuyableItem{
         return this.item;
     }
 
-    private ItemStack constructItem() {
+    protected ItemStack constructItem() {
         ItemStack item = new ItemStack(material, 1, data);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {

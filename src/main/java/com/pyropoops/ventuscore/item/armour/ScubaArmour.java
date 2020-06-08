@@ -10,7 +10,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,7 +32,7 @@ public class ScubaArmour implements IPlayerTickUpdater {
     }
 
     public static List<String> generateLore() {
-        return Arrays.asList(Methods.colour("&3Tier 1"));
+        return Arrays.asList(Methods.color("&3Tier 1"));
     }
 
     private boolean isWearing(Player player) {
@@ -60,7 +59,7 @@ public class ScubaArmour implements IPlayerTickUpdater {
 
 class ScubaHelmet extends Item {
     public ScubaHelmet() {
-        super("scubahelmet", Material.LEATHER_HELMET, (short) 0, Methods.colour("&b&lSCUBA HELMET"), ScubaArmour.generateLore());
+        super("scubahelmet", Material.LEATHER_HELMET, (short) 0, Methods.color("&b&lSCUBA HELMET"), ScubaArmour.generateLore());
     }
 
     @Override
@@ -76,7 +75,7 @@ class ScubaHelmet extends Item {
 
 class ScubaChestplate extends Item {
     public ScubaChestplate() {
-        super("scubachestplate", Material.LEATHER_CHESTPLATE, (short) 0, Methods.colour("&b&lSCUBA CHESTPLATE"), ScubaArmour.generateLore());
+        super("scubachestplate", Material.LEATHER_CHESTPLATE, (short) 0, Methods.color("&b&lSCUBA CHESTPLATE"), ScubaArmour.generateLore());
     }
 
     @Override
@@ -92,7 +91,7 @@ class ScubaChestplate extends Item {
 
 class ScubaLeggings extends Item {
     public ScubaLeggings() {
-        super("scubaleggings", Material.LEATHER_LEGGINGS, (short) 0, Methods.colour("&b&lSCUBA LEGGINGS"), ScubaArmour.generateLore());
+        super("scubaleggings", Material.LEATHER_LEGGINGS, (short) 0, Methods.color("&b&lSCUBA LEGGINGS"), ScubaArmour.generateLore());
     }
 
     @Override
@@ -108,7 +107,7 @@ class ScubaLeggings extends Item {
 
 class ScubaBoots extends Item {
     public ScubaBoots() {
-        super("scubaboots", Material.LEATHER_BOOTS, (short) 0, Methods.colour("&b&lSCUBA BOOTS"), ScubaArmour.generateLore());
+        super("scubaboots", Material.LEATHER_BOOTS, (short) 0, Methods.color("&b&lSCUBA BOOTS"), ScubaArmour.generateLore());
     }
 
     @Override

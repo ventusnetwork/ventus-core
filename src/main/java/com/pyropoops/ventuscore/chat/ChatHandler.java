@@ -88,11 +88,11 @@ public class ChatHandler implements Listener {
             String playerInfo = this.getStats(e.getPlayer());
 
             builder.event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/msg " + e.getPlayer().getName() + " "))
-                    .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Methods.colour(playerInfo)).create())).append(TextComponent.fromLegacyText(e.getPlayer().getDisplayName()));
+                    .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Methods.color(playerInfo)).create())).append(TextComponent.fromLegacyText(e.getPlayer().getDisplayName()));
 
             String message = rainbowChatters.containsKey(e.getPlayer().getUniqueId()) ? rainbow(e.getMessage(), rainbowChatters.get(e.getPlayer().getUniqueId())) : e.getMessage();
 
-            builder.reset().append(TextComponent.fromLegacyText(Methods.colour("&7 » ")
+            builder.reset().append(TextComponent.fromLegacyText(Methods.color("&7 » ")
                     + VentusCore.instance.playerDataHandler.getChatColor(e.getPlayer()) + message));
 
             for (Player p : VentusCore.instance.getServer().getOnlinePlayers()) {
@@ -136,7 +136,7 @@ public class ChatHandler implements Listener {
         }
         if (count > 5) {
             e.setCancelled(true);
-            e.getPlayer().sendMessage(Methods.colour("&cPlease do not character spam!"));
+            e.getPlayer().sendMessage(Methods.color("&cPlease do not character spam!"));
         }
     }
 

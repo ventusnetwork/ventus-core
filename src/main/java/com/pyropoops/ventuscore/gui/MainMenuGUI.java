@@ -17,7 +17,7 @@ import java.util.UUID;
 
 public class MainMenuGUI extends MenuGUI {
     public MainMenuGUI() {
-        super(Methods.colour("&4&lVENTUS MENU"));
+        super(Methods.color("&4&lVENTUS MENU"));
     }
 
     @Override
@@ -29,61 +29,61 @@ public class MainMenuGUI extends MenuGUI {
                 ItemStack playerHead = new ItemStack(Material.PLAYER_HEAD, 1);
                 SkullMeta skullMeta = (SkullMeta) playerHead.getItemMeta();
                 skullMeta.setOwningPlayer(player);
-                skullMeta.setDisplayName(Methods.colour("&c&l") + player.getName());
-                skullMeta.setLore(Arrays.asList(Methods.colour("&cHello! This is your main menu!"),
-                        Methods.colour("&cYou can navigate through the menu with"),
-                        Methods.colour("&cthe buttons below!")));
+                skullMeta.setDisplayName(Methods.color("&c&l") + player.getName());
+                skullMeta.setLore(Arrays.asList(Methods.color("&cHello! This is your main menu!"),
+                        Methods.color("&cYou can navigate through the menu with"),
+                        Methods.color("&cthe buttons below!")));
                 playerHead.setItemMeta(skullMeta);
                 inventory.setItem(i, playerHead);
             } else if (i == 29) {
                 ItemStack tokens = new ItemStack(Material.EMERALD, 1);
                 ItemMeta tokensMeta = tokens.getItemMeta();
-                tokensMeta.setDisplayName(Methods.colour("&2&lTOKENS"));
-                tokensMeta.setLore(Arrays.asList(Methods.colour("&aYou have " +
+                tokensMeta.setDisplayName(Methods.color("&2&lTOKENS"));
+                tokensMeta.setLore(Arrays.asList(Methods.color("&aYou have " +
                         VentusCore.instance.playerDataHandler.getTokens(player) + " tokens!")));
                 tokens.setItemMeta(tokensMeta);
                 inventory.setItem(i, tokens);
             } else if (i == 30) {
                 ItemStack warps = new ItemStack(Material.ENDER_PEARL, 1);
                 ItemMeta warpsMeta = warps.getItemMeta();
-                warpsMeta.setDisplayName(Methods.colour("&a&lWARPS"));
+                warpsMeta.setDisplayName(Methods.color("&a&lWARPS"));
                 warps.setItemMeta(warpsMeta);
                 inventory.setItem(i, warps);
             } else if (i == 31) {
                 ItemStack kits = new ItemStack(Material.ARROW, 1);
                 ItemMeta kitsMeta = kits.getItemMeta();
-                kitsMeta.setDisplayName(Methods.colour("&4&lKITS"));
+                kitsMeta.setDisplayName(Methods.color("&4&lKITS"));
                 kits.setItemMeta(kitsMeta);
                 inventory.setItem(i, kits);
             } else if (i == 32) {
                 ItemStack quests = new ItemStack(Material.ENCHANTED_BOOK, 1);
                 ItemMeta questsMeta = quests.getItemMeta();
-                questsMeta.setDisplayName(Methods.colour("&6&lQUESTS"));
-                questsMeta.setLore(Arrays.asList(Methods.colour("&4&lWIP")));
+                questsMeta.setDisplayName(Methods.color("&6&lQUESTS"));
+                questsMeta.setLore(Arrays.asList(Methods.color("&4&lWIP")));
                 quests.setItemMeta(questsMeta);
                 inventory.setItem(i, quests);
             } else if (i == 33) {
                 ItemStack playerStats = new ItemStack(Material.WRITABLE_BOOK, 1);
                 ItemMeta playerStatsMeta = playerStats.getItemMeta();
-                playerStatsMeta.setDisplayName(Methods.colour("&3&lPLAYER STATS"));
+                playerStatsMeta.setDisplayName(Methods.color("&3&lPLAYER STATS"));
                 playerStats.setItemMeta(playerStatsMeta);
                 inventory.setItem(i, playerStats);
             } else if (i == 38) {
                 ItemStack auctionHouse = new ItemStack(Material.PAPER, 1);
                 ItemMeta auctionHouseMeta = auctionHouse.getItemMeta();
-                auctionHouseMeta.setDisplayName(Methods.colour("&9&lAUCTION HOUSE"));
+                auctionHouseMeta.setDisplayName(Methods.color("&9&lAUCTION HOUSE"));
                 auctionHouse.setItemMeta(auctionHouseMeta);
                 inventory.setItem(i, auctionHouse);
             } else if (i == 39) {
                 ItemStack chatColor = new ItemStack(Material.MAGENTA_DYE, 1);
                 ItemMeta chatColorMeta = chatColor.getItemMeta();
-                chatColorMeta.setDisplayName(Methods.colour("&d&lCHAT COLOR"));
+                chatColorMeta.setDisplayName(Methods.color("&d&lCHAT COLOR"));
                 chatColor.setItemMeta(chatColorMeta);
                 inventory.setItem(i, chatColor);
             } else if (i == 40) {
                 ItemStack discord = new ItemStack(Material.OAK_SIGN, 1);
                 ItemMeta discordMeta = discord.getItemMeta();
-                discordMeta.setDisplayName(Methods.colour("&9&lDISCORD"));
+                discordMeta.setDisplayName(Methods.color("&9&lDISCORD"));
                 discord.setItemMeta(discordMeta);
                 inventory.setItem(i, discord);
             } else if (i == 41) {
@@ -91,13 +91,13 @@ public class MainMenuGUI extends MenuGUI {
                 SkullMeta staffMeta = (SkullMeta) staff.getItemMeta();
                 staffMeta.setOwningPlayer(Bukkit.getOfflinePlayer
                         (UUID.fromString("a83ffbfd-17e1-4d1c-8c97-804c994eb155")));
-                staffMeta.setDisplayName(Methods.colour("&4&lSTAFF"));
+                staffMeta.setDisplayName(Methods.color("&4&lSTAFF"));
                 staff.setItemMeta(staffMeta);
                 inventory.setItem(i, staff);
             } else if (i == 42) {
                 ItemStack exit = new ItemStack(Material.BARRIER, 1);
                 ItemMeta exitMeta = exit.getItemMeta();
-                exitMeta.setDisplayName(Methods.colour("&4&lEXIT"));
+                exitMeta.setDisplayName(Methods.color("&4&lEXIT"));
                 exit.setItemMeta(exitMeta);
                 inventory.setItem(i, exit);
             } else {
@@ -159,6 +159,6 @@ public class MainMenuGUI extends MenuGUI {
     private void discord(Player player) {
         player.closeInventory();
         if (VentusCore.permissionManager.hasPermission(player, Permissions.DISCORD.value(), true, false))
-            player.sendMessage(Methods.colour("&9You can find our discord at: &nhttp://discord.ventusnetwork.net/"));
+            player.sendMessage(Methods.color("&9You can find our discord at: &nhttp://discord.ventusnetwork.net/"));
     }
 }
