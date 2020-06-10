@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataObject implements IDataObject {
-    private static List<DataObject> dataObjects = new ArrayList<>();
+    public static List<DataObject> dataObjects = new ArrayList<>();
 
     private String name;
     private String subfolder;
@@ -36,6 +36,10 @@ public class DataObject implements IDataObject {
         dataObjects.add(this);
     }
 
+    public String getName(){
+        return name;
+    }
+
     public static void saveData(){
         for(DataObject dataObject : dataObjects){
             dataObject.saveConfig();
@@ -55,7 +59,7 @@ public class DataObject implements IDataObject {
         this.saveConfig();
     }
 
-    private void saveConfig(){
+    public void saveConfig(){
         try{
             config.save(file);
         }catch(IOException e){
