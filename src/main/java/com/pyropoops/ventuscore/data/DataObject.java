@@ -1,86 +1,75 @@
 package com.pyropoops.ventuscore.data;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import com.pyropoops.ventuscore.VentusCore;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataObject implements IDataObject {
-    public static Map<String, DataObject> dataObjects = new HashMap<>();
+    private static List<DataObject> dataObjects = new ArrayList<>();
 
-    private String path;
-    private File dataFile;
+    private String name;
+    private String subfolder;
+    private VentusCore plugin;
+    private File file;
+    private FileConfiguration config;
 
-    public DataObject(String path, boolean replace) {
-        this.dataFile = new File(path);
-        if (!path.endsWith(".json")) {
-            path += ".json";
+    public DataObject(String name, String subfolder){
+        if(!name.toLowerCase().endsWith(".yml")){
+            name += ".yml";
         }
-        this.path = path;
-        createDataFile(replace);
+
+        this.name = name;
+        this.subfolder = subfolder;
+        this.plugin = VentusCore.instance;
+
+        try{
+            this.loadConfig();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
+        dataObjects.add(this);
     }
 
-    @Override
-    public boolean createDataFile(boolean replace) {
-        File file = new File(path);
-        if (file.exists() && !replace) return true;
-        try {
-            if (!file.exists()) {
-                if (!file.getParentFile().exists()) {
-                    file.getParentFile().mkdirs();
-                }
-                file.createNewFile();
+    public static void saveData(){
+        for(DataObject dataObject : dataObjects){
+            dataObject.saveConfig();
+        }
+    }
+
+    private void loadConfig() throws IOException{
+        this.file = subfolder != null ? new File(plugin.getDataFolder() + "/" + subfolder + "/" + name) :
+                new File(plugin.getDataFolder() + "/" + name);
+        if(!file.exists()){
+            if(!file.getParentFile().exists()){
+                file.getParentFile().mkdirs();
             }
-        } catch (IOException e) {
+            file.createNewFile();
+        }
+        this.config = YamlConfiguration.loadConfiguration(file);
+        this.saveConfig();
+    }
+
+    private void saveConfig(){
+        try{
+            config.save(file);
+        }catch(IOException e){
             e.printStackTrace();
-            return false;
         }
-        this.dataFile = file;
-        return true;
     }
 
     @Override
-    public File getDataFile() {
-        return this.dataFile;
+    public File getDataFile(){
+        return file;
     }
 
     @Override
-    public JSONObject getDataObject() {
-        JSONParser parser = new JSONParser();
-        JSONObject jsonObject;
-        try {
-            jsonObject = (JSONObject) parser.parse(new FileReader(this.dataFile));
-        } catch (ParseException | IOException e) {
-            createDataFile(true);
-            return getDataObject();
-        }
-        return jsonObject;
-    }
-
-    @Override
-    public Object getValue(String key) {
-        return this.getDataObject().get(key);
-    }
-
-    @Override
-    public boolean saveFile(JSONObject jsonObject) {
-        try {
-            PrintWriter pw = new PrintWriter(this.dataFile);
-            pw.write(jsonObject.toJSONString());
-
-            pw.flush();
-            pw.close();
-
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
+    public FileConfiguration getDataObject(){
+        return config;
     }
 }
