@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class BackstabberItem extends Item implements Listener {
-    private long cooldown = (3 * 1000L); // TODO
+    private long cooldown = 3 * 1000L;
 
     private HashMap<Player, Long> cooldownTime;
 
