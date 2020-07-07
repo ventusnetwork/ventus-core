@@ -80,7 +80,7 @@ public final class VentusCore extends JavaPlugin {
     }
 
     private void registerData() {
-        playerDataHandler = new PlayerDataHandler(this.getDataFolder() + "/player-data");
+        playerDataHandler = new PlayerDataHandler("player-data");
     }
 
 
