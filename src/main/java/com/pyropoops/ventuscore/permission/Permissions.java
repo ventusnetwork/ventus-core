@@ -5,9 +5,10 @@ public enum Permissions {
     DISCORD("ventuscore.discord"),
     MAIN_MENU("ventuscore.mainmenu"),
     CHAT_BYPASS("ventuscore.chat.bypass"),
-    CHAT_COLOR_PREFIX("ventuscore.chat.color."),
     RAINBOW_CHAT("ventuscore.chat.rainbow"),
-    RELOAD("ventuscore.reload")
+    RELOAD("ventuscore.reload"),
+    TOKENS("ventuscore.tokens.admin"),
+    LEVEL("ventuscore.level.admin")
     ;
     private String value;
 

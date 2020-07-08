@@ -1,10 +1,7 @@
 package com.pyropoops.ventuscore;
 
 import com.pyropoops.ventuscore.chat.ChatHandler;
-import com.pyropoops.ventuscore.command.GetItemCMD;
-import com.pyropoops.ventuscore.command.MainMenuCMD;
-import com.pyropoops.ventuscore.command.RainbowChatCMD;
-import com.pyropoops.ventuscore.command.ReloadCMD;
+import com.pyropoops.ventuscore.command.*;
 import com.pyropoops.ventuscore.config.ConfigHandler;
 import com.pyropoops.ventuscore.data.PlayerDataHandler;
 import com.pyropoops.ventuscore.gui.MenuGUI;
@@ -77,6 +74,8 @@ public final class VentusCore extends JavaPlugin {
 
         PluginHelper.registerCommand("rainbowchat", new RainbowChatCMD());
         PluginHelper.registerCommand("reloadventus", new ReloadCMD());
+        PluginHelper.registerCommand("settokens", new SetTokensCMD());
+        PluginHelper.registerCommand("setlevel", new SetLevelCMD());
     }
 
     private void registerData() {
