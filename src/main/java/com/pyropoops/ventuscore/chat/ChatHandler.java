@@ -124,10 +124,13 @@ public class ChatHandler implements Listener {
                         default:
                             component = new TextComponent();
                             component.setColor(format);
+
                             component.setBold(false);
                             component.setItalic(false);
                             component.setStrikethrough(false);
                             component.setUnderlined(false);
+                            component.setObfuscated(false);
+
                             break;
                     }
                 }

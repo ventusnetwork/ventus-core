@@ -21,7 +21,6 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
  * - Level & tokens += kills
  */
 
-// TODO: Add player set stats functionality
 public class PlayerStats implements Listener, IPlayerTickUpdater {
     public static PlayerStats instance;
 
