@@ -48,7 +48,6 @@ public class ChatHandler implements Listener {
     private void hookEssentials(){
         if(VentusCore.instance.getServer().getPluginManager().isPluginEnabled("Essentials")){
             this.ess = (Essentials) VentusCore.instance.getServer().getPluginManager().getPlugin("Essentials");
-            VentusCore.instance.getLogger().info("Found EssentialsX Economy...");
         }
     }
 

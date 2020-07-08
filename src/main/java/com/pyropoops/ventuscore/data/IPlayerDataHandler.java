@@ -45,6 +45,4 @@ public interface IPlayerDataHandler {
     void setMinutes(OfflinePlayer player, int minutes);
 
     int getMinutes(OfflinePlayer player);
-
-    // TODO: votes
 }
