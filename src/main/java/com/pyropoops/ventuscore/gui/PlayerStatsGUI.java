@@ -61,14 +61,6 @@ public class PlayerStatsGUI extends MenuGUI {
                 killsMeta.setLore(getKillsLore(player));
                 kills.setItemMeta(killsMeta);
                 inventory.setItem(i, kills);
-            }else if(i == 8){
-                ItemStack playtime = new ItemStack(Material.CLOCK, 1);
-                ItemMeta playtimeMeta = playtime.getItemMeta();
-                if(playtimeMeta == null) continue;
-                playtimeMeta.setDisplayName(Methods.color("&6&l" + "PLAY-TIME"));
-                playtimeMeta.setLore(getPlayTimeLore(player));
-                playtime.setItemMeta(playtimeMeta);
-                inventory.setItem(i, playtime);
             }else{
                 inventory.setItem(i, filler);
             }
@@ -108,10 +100,6 @@ public class PlayerStatsGUI extends MenuGUI {
         String s = "&aYou have &2" + kills + "&a kill";
         if(kills != 1) s += "s";
         return Collections.singletonList(Methods.color(s + "."));
-    }
-
-    private List<String> getPlayTimeLore(Player player){
-        return Collections.singletonList(Methods.color("&cW.I.P."));
     }
 
     @Override

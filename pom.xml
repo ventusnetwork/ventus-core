@@ -40,8 +40,6 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <outputDirectory>C:/Users/xpyro/Desktop/dev/Minecraft/Servers/server/plugins/
-                            </outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
