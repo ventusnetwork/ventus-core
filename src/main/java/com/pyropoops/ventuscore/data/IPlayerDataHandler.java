@@ -39,4 +39,10 @@ public interface IPlayerDataHandler {
     void setBlocksBroken(OfflinePlayer player, int blocks);
 
     int getBlocksBroken(OfflinePlayer player);
+
+    void incrementTick(OfflinePlayer player);
+
+    void setMinutes(OfflinePlayer player, int minutes);
+
+    int getMinutes(OfflinePlayer player);
 }
