@@ -176,40 +176,4 @@ public class PlayerDataHandler implements IPlayerDataHandler {
         return 0;
     }
 
-    @Override
-    public void setMinutes(OfflinePlayer player, int minutes){
-        this.getPlayerData(player).getDataObject().set("minutes", minutes);
-        this.getPlayerData(player).saveConfig();
-    }
-
-    @Override
-    public int getMinutes(OfflinePlayer player){
-        if(this.getPlayerData(player).getDataObject().contains("minutes")){
-            return this.getPlayerData(player).getDataObject().getInt("minutes");
-        }
-        this.setMinutes(player, 0);
-        return 0;
-    }
-
-    @Override
-    public void incrementTick(OfflinePlayer player){
-        if(!this.playerTicks.containsKey(player.getUniqueId())){
-            this.playerTicks.put(player.getUniqueId(), 1);
-            return;
-        }
-        int ticks = this.playerTicks.get(player.getUniqueId());
-        ticks++;
-        if(ticks > 1200){
-            this.setMinutes(player, this.getMinutes(player) + 1);
-            ticks -= 1200;
-            this.addExp(player, 1000D / 30D);
-            if(player instanceof Player){
-                if(this.getMinutes(player) % 60 == 0){
-                    PlayerStats.instance.ontimeReward((Player) player);
-                }
-            }
-        }
-        this.playerTicks.put(player.getUniqueId(), ticks);
-    }
-
 }
