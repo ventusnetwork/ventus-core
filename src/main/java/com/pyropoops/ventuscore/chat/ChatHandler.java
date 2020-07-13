@@ -16,7 +16,10 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,7 +32,7 @@ public class ChatHandler implements Listener {
 
     private Essentials ess = null;
 
-    public ChatHandler(){
+    public ChatHandler() {
         PluginHelper.registerListener(this);
         this.swearWords = ConfigHandler.mainConfig.getConfig().getStringList("swear-words");
 
@@ -40,26 +43,26 @@ public class ChatHandler implements Listener {
         this.hookEssentials();
     }
 
-    public static void register(){
-        if(instance == null)
+    public static void register() {
+        if (instance == null)
             instance = new ChatHandler();
     }
 
-    private void hookEssentials(){
-        if(VentusCore.instance.getServer().getPluginManager().isPluginEnabled("Essentials")){
+    private void hookEssentials() {
+        if (VentusCore.instance.getServer().getPluginManager().isPluginEnabled("Essentials")) {
             this.ess = (Essentials) VentusCore.instance.getServer().getPluginManager().getPlugin("Essentials");
         }
     }
 
-    private String getStats(Player player){
+    private String getStats(Player player) {
         PlayerDataHandler dataHandler = VentusCore.instance.playerDataHandler;
         String s = "&3&n" + player.getName() + "\n";
-        if(this.ess != null){
+        if (this.ess != null) {
             BigDecimal money = ess.getUser(player).getMoney();
-            if(money.doubleValue() > 0){
+            if (money.doubleValue() > 0) {
                 DecimalFormat decimalFormat = new DecimalFormat("#,###.00");
                 s += "&b» Balance: &7$" + decimalFormat.format(money) + "\n";
-            }else{
+            } else {
                 s += "&b» Balance: &7$0\n";
             }
         }
@@ -69,16 +72,17 @@ public class ChatHandler implements Listener {
         return s;
     }
 
-    private boolean isEventCancelled(AsyncPlayerChatEvent e){
+    private boolean isEventCancelled(AsyncPlayerChatEvent e) {
         return e.isCancelled() && !this.chatEvents.contains(e);
     }
+
     public static BaseComponent[] fromLegacyText(String message, net.md_5.bungee.api.ChatColor defaultColor) {
         ArrayList<BaseComponent> components = new ArrayList();
         StringBuilder builder = new StringBuilder();
         TextComponent component = new TextComponent();
         Matcher matcher = url.matcher(message);
 
-        for(int i = 0; i < message.length(); ++i) {
+        for (int i = 0; i < message.length(); ++i) {
             char c = message.charAt(i);
             TextComponent old;
             if (c == 167) {
@@ -89,7 +93,7 @@ public class ChatHandler implements Listener {
 
                 c = message.charAt(i);
                 if (c >= 'A' && c <= 'Z') {
-                    c = (char)(c + 32);
+                    c = (char) (c + 32);
                 }
 
                 net.md_5.bungee.api.ChatColor format = net.md_5.bungee.api.ChatColor.getByChar(c);
@@ -102,7 +106,7 @@ public class ChatHandler implements Listener {
                         components.add(old);
                     }
 
-                    switch(format) {
+                    switch (format) {
                         case BOLD:
                             component.setBold(true);
                             break;
@@ -167,9 +171,8 @@ public class ChatHandler implements Listener {
         return components.toArray(new BaseComponent[components.size()]);
     }
 
-    @EventHandler
-    public void onChat(AsyncPlayerChatEvent e){
-        if(!this.isEventCancelled(e)){
+    public void onChat(AsyncPlayerChatEvent e) {
+        if (!this.isEventCancelled(e)) {
             ComponentBuilder builder = new ComponentBuilder("");
 
             String playerInfo = this.getStats(e.getPlayer());
@@ -183,7 +186,7 @@ public class ChatHandler implements Listener {
                     + VentusCore.instance.playerDataHandler.getChatColor(e.getPlayer()) + message));
 
             BaseComponent[] baseComponents = builder.create();
-            for(Player p : VentusCore.instance.getServer().getOnlinePlayers()){
+            for (Player p : VentusCore.instance.getServer().getOnlinePlayers()) {
                 p.spigot().sendMessage(baseComponents);
             }
 
@@ -196,56 +199,65 @@ public class ChatHandler implements Listener {
         }
     }
 
-    @EventHandler
-    public void onSwear(AsyncPlayerChatEvent e){
-        if(playerBypassChat(e.getPlayer())){
-            return;
+    public AsyncPlayerChatEvent onSwear(AsyncPlayerChatEvent e) {
+        if (playerBypassChat(e.getPlayer())) {
+            return e;
         }
-        for(String swear : this.swearWords){
-            if(e.getMessage().toLowerCase().contains(swear.toLowerCase())){
+        for (String swear : this.swearWords) {
+            if (e.getMessage().toLowerCase().contains(swear.toLowerCase())) {
                 StringBuilder censor = new StringBuilder();
-                for(int i = 0; i < swear.length(); i++){
+                for (int i = 0; i < swear.length(); i++) {
                     censor.append("*");
                 }
-                e.setMessage(e.getMessage().replaceAll(swear, censor.toString()));
+                e.setMessage(e.getMessage().toLowerCase().replaceAll(swear.toLowerCase(), censor.toString()));
             }
         }
+        return e;
     }
 
-    @EventHandler
-    public void onCharacterSpam(AsyncPlayerChatEvent e){
-        if(playerBypassChat(e.getPlayer())){
-            return;
+    public boolean onCharacterSpam(AsyncPlayerChatEvent e) {
+        if (playerBypassChat(e.getPlayer())) {
+            return true;
         }
         int count = 0;
         char[] array = e.getMessage().toCharArray();
-        for(int i = 1; i < array.length; i++){
-            if(array[i] == array[i - 1]){
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] == array[i - 1]) {
                 count++;
             }
         }
-        if(count > 5){
-            e.setCancelled(true);
+        if (count > 5) {
             e.getPlayer().sendMessage(Methods.color("&cPlease do not character spam!"));
+            return false;
+        }
+        return true;
+    }
+
+    @EventHandler
+    public void onAsyncChat(AsyncPlayerChatEvent e) {
+        e = onSwear(e);
+        boolean charSpam = onCharacterSpam(e);
+        if (charSpam) {
+            onChat(e);
         }
     }
 
-    private boolean playerBypassChat(Player player){
+    private boolean playerBypassChat(Player player) {
         return VentusCore.permissionManager.hasPermission(player, Permissions.CHAT_BYPASS.value(), false, false);
     }
 
-    private String rainbow(String s, String sequenceString){
+    private String rainbow(String s, String sequenceString) {
         s = ChatColor.stripColor(s);
         StringBuilder rainbowChat = new StringBuilder();
         char[] sequence = sequenceString.toCharArray();
         int color = 0;
         ChatColor chatColor;
-        for(int i = 0; i < s.length(); i++){
-            if(color >= sequence.length){
+        for (int i = 0; i < s.length(); i++) {
+            if (color >= sequence.length) {
                 color = 0;
             }
             chatColor = ChatColor.getByChar(sequence[color]);
-            if(chatColor == null){
+            if (chatColor == null) {
                 return s;
             }
             color++;
