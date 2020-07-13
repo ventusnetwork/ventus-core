@@ -61,7 +61,7 @@ public class PlayerStats implements Listener, IPlayerTickUpdater {
 
     @Override
     public void onPlayerUpdate(Player player) {
-        dataHandler.incrementTick(player);
+        dataHandler.check(player);
     }
 
     public void ontimeReward(Player player) {
