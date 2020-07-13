@@ -5,3 +5,22 @@ api-version: 1.13
 authors: [pyropoops]
 softdepend:
   - Essentials
+permissions:
+  ventuscore.getitem:
+    default: false
+  ventuscore.discord:
+    default: false
+  ventuscore.mainmenu:
+    default: false
+  ventuscore.chat.bypass:
+    default: false
+  ventuscore.chat.rainbow:
+    default: false
+  ventuscore.reload:
+    default: false
+  ventuscore.tokens.admin:
+    default: false
+  ventuscore.level.admin:
+    default: false
+
+
