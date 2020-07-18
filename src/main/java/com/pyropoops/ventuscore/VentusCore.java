@@ -29,6 +29,11 @@ public final class VentusCore extends JavaPlugin {
     public static TickUpdaterHandler tickUpdaterHandler;
     public PlayerDataHandler playerDataHandler;
 
+    public static void reload() {
+        instance.getServer().getPluginManager().disablePlugin(instance);
+        instance.getServer().getPluginManager().enablePlugin(instance);
+    }
+
     @Override
     public void onEnable() {
         // Plugin startup logic
@@ -36,7 +41,6 @@ public final class VentusCore extends JavaPlugin {
 
         this.register();
     }
-
 
     @Override
     public void onDisable() {
@@ -58,11 +62,6 @@ public final class VentusCore extends JavaPlugin {
         ChatHandler.register();
     }
 
-    public static void reload() {
-        instance.getServer().getPluginManager().disablePlugin(instance);
-        instance.getServer().getPluginManager().enablePlugin(instance);
-    }
-
     private void registerCommands() {
         GetItemCMD getItemCommand = new GetItemCMD();
         PluginHelper.registerCommand("getitem", getItemCommand);
@@ -74,7 +73,7 @@ public final class VentusCore extends JavaPlugin {
 
         PluginHelper.registerCommand("rainbowchat", new RainbowChatCMD());
         PluginHelper.registerCommand("reloadventus", new ReloadCMD());
-        PluginHelper.registerCommand("settokens", new SetTokensCMD());
+        PluginHelper.registerCommand("tokens", new TokensCMD());
         PluginHelper.registerCommand("setlevel", new SetLevelCMD());
     }
 
