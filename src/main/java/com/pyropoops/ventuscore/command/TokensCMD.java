@@ -42,19 +42,23 @@ public class TokensCMD implements CommandExecutor, TabCompleter {
             case "set":
                 dataHandler.setTokens(player, number);
                 sender.sendMessage(Methods.color("&aSuccessfully set " + player.getName() + "'s tokens to " + number));
+                player.sendMessage(Methods.color("&aYou now have " + number + " tokens"));
                 break;
             case "give":
                 sender.sendMessage(Methods.color("&aSuccessfully given " + player.getName() + " " + number + " tokens!"));
                 dataHandler.setTokens(player, dataHandler.getTokens(player) + number);
+                player.sendMessage(Methods.color("&aYou have received " + number + "tokens"));
                 break;
             case "remove":
                 sender.sendMessage(Methods.color("Removed " + number + " tokens from " + player.getName()));
+                player.sendMessage(Methods.color("&a" + number + " tokens has been taken from you!"));
                 dataHandler.setTokens(player, dataHandler.getTokens(player) - number);
                 break;
             default:
                 sender.sendMessage(Methods.color("&cUsage - /tokens <set|give|remove> <player> <number>"));
                 break;
         }
+        if (dataHandler.getTokens(player) < 0) dataHandler.setTokens(player, 0);
         return true;
     }
 
