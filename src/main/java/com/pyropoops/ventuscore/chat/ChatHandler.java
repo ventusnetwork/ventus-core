@@ -28,7 +28,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ChatHandler implements Listener {
-    private static final Pattern url = Pattern.compile("^(?:(https?)://)?([-\\w_\\.]{2,}\\.[a-z]{2,4})(/\\S*)?$");
+    private static final Pattern url = Pattern.compile("^(?:(https?)://)?([-\\w_.]{2,}\\.[a-z]{2,4})(/\\S*)?$");
     public static ChatHandler instance = null;
     public static HashMap<UUID, String> rainbowChatters;
     public List<String> swearWords;
@@ -54,7 +54,7 @@ public class ChatHandler implements Listener {
     }
 
     public static BaseComponent[] fromLegacyText(String message, net.md_5.bungee.api.ChatColor defaultColor) {
-        ArrayList<BaseComponent> components = new ArrayList();
+        ArrayList<BaseComponent> components = new ArrayList<>();
         StringBuilder builder = new StringBuilder();
         TextComponent component = new TextComponent();
         Matcher matcher = url.matcher(message);
