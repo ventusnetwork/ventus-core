@@ -5,19 +5,17 @@ import com.pyropoops.ventuscore.data.PlayerDataHandler;
 import com.pyropoops.ventuscore.permission.Permissions;
 import com.pyropoops.ventuscore.utils.Methods;
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
+import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class TokensCMD implements CommandExecutor, TabCompleter {
     public TokensCMD() {
-        Objects.requireNonNull(VentusCore.instance.getCommand("tokens")).setTabCompleter(this);
+        PluginCommand pluginCommand = VentusCore.instance.getCommand("tokens");
+        if (pluginCommand != null)
+            pluginCommand.setTabCompleter(this);
     }
 
     @Override

@@ -3,8 +3,9 @@ version: ${project.version}
 main: com.pyropoops.ventuscore.VentusCore
 api-version: 1.13
 authors: [pyropoops]
-softdepend:
+depend:
   - Essentials
+  - MarriageMaster
 permissions:
   ventuscore.getitem:
     default: false

@@ -1,5 +1,7 @@
 package com.pyropoops.ventuscore.chat;
 
+import at.pcgamingfreaks.MarriageMaster.Bukkit.API.MarriageMasterPlugin;
+import at.pcgamingfreaks.MarriageMaster.Bukkit.API.MarriagePlayer;
 import com.earth2me.essentials.Essentials;
 import com.pyropoops.ventuscore.VentusCore;
 import com.pyropoops.ventuscore.config.ConfigHandler;
@@ -9,10 +11,12 @@ import com.pyropoops.ventuscore.permission.Permissions;
 import com.pyropoops.ventuscore.utils.Methods;
 import net.md_5.bungee.api.chat.*;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.plugin.Plugin;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -24,12 +28,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ChatHandler implements Listener {
+    private static final Pattern url = Pattern.compile("^(?:(https?)://)?([-\\w_\\.]{2,}\\.[a-z]{2,4})(/\\S*)?$");
     public static ChatHandler instance = null;
     public static HashMap<UUID, String> rainbowChatters;
     public List<String> swearWords;
+    private MarriageMasterPlugin marriageMasterPlugin = null;
     private ArrayList<AsyncPlayerChatEvent> chatEvents;
-    private static final Pattern url = Pattern.compile("^(?:(https?)://)?([-\\w_\\.]{2,}\\.[a-z]{2,4})(/\\S*)?$");
-
     private Essentials ess = null;
 
     public ChatHandler() {
@@ -41,39 +45,12 @@ public class ChatHandler implements Listener {
         this.chatEvents = new ArrayList<>();
 
         this.hookEssentials();
+        this.hookMarriageAPI();
     }
 
     public static void register() {
         if (instance == null)
             instance = new ChatHandler();
-    }
-
-    private void hookEssentials() {
-        if (VentusCore.instance.getServer().getPluginManager().isPluginEnabled("Essentials")) {
-            this.ess = (Essentials) VentusCore.instance.getServer().getPluginManager().getPlugin("Essentials");
-        }
-    }
-
-    private String getStats(Player player) {
-        PlayerDataHandler dataHandler = VentusCore.instance.playerDataHandler;
-        String s = "&3&n" + player.getName() + "\n";
-        if (this.ess != null) {
-            BigDecimal money = ess.getUser(player).getMoney();
-            if (money.doubleValue() > 0) {
-                DecimalFormat decimalFormat = new DecimalFormat("#,###.00");
-                s += "&b» Balance: &7$" + decimalFormat.format(money) + "\n";
-            } else {
-                s += "&b» Balance: &7$0\n";
-            }
-        }
-        s += "&b» Tokens: &7" + dataHandler.getTokens(player) + "\n";
-        s += "&b» Level: &7" + dataHandler.getLevel(player) + "\n";
-        s += "&b» Kills: &7" + dataHandler.getKills(player);
-        return s;
-    }
-
-    private boolean isEventCancelled(AsyncPlayerChatEvent e) {
-        return e.isCancelled() && !this.chatEvents.contains(e);
     }
 
     public static BaseComponent[] fromLegacyText(String message, net.md_5.bungee.api.ChatColor defaultColor) {
@@ -168,7 +145,48 @@ public class ChatHandler implements Listener {
 
         component.setText(builder.toString());
         components.add(component);
-        return components.toArray(new BaseComponent[components.size()]);
+        return components.toArray(new BaseComponent[0]);
+    }
+
+    private void hookEssentials() {
+        if (VentusCore.instance.getServer().getPluginManager().isPluginEnabled("Essentials")) {
+            this.ess = (Essentials) VentusCore.instance.getServer().getPluginManager().getPlugin("Essentials");
+        }
+    }
+
+    private String getStats(Player player) {
+        PlayerDataHandler dataHandler = VentusCore.instance.playerDataHandler;
+        String s = "&3&n" + player.getName() + "\n";
+        if (this.ess != null) {
+            BigDecimal money = ess.getUser(player).getMoney();
+            if (money.doubleValue() > 0) {
+                DecimalFormat decimalFormat = new DecimalFormat("#,###.00");
+                s += "&b» Balance: &7$" + decimalFormat.format(money) + "\n";
+            } else {
+                s += "&b» Balance: &7$0\n";
+            }
+        }
+        s += "&b» Tokens: &7" + dataHandler.getTokens(player) + "\n";
+        s += "&b» Level: &7" + dataHandler.getLevel(player) + "\n";
+        s += "&b» Kills: &7" + dataHandler.getKills(player);
+        return s;
+    }
+
+    private boolean isEventCancelled(AsyncPlayerChatEvent e) {
+        return e.isCancelled() && !this.chatEvents.contains(e);
+    }
+
+    private void hookMarriageAPI() {
+        Plugin plugin = VentusCore.instance.getServer().getPluginManager().getPlugin("MarriageMaster");
+        if (plugin instanceof MarriageMasterPlugin) {
+            this.marriageMasterPlugin = (MarriageMasterPlugin) plugin;
+        }
+    }
+
+    private OfflinePlayer getPartner(Player player) {
+        MarriagePlayer marriagePlayer = this.marriageMasterPlugin.getPlayerData(player);
+        MarriagePlayer partner = marriagePlayer.getPartner();
+        return partner == null ? null : partner.getPlayer();
     }
 
     public void onChat(AsyncPlayerChatEvent e) {
@@ -176,6 +194,13 @@ public class ChatHandler implements Listener {
             ComponentBuilder builder = new ComponentBuilder("");
 
             String playerInfo = this.getStats(e.getPlayer());
+
+            OfflinePlayer partner = getPartner(e.getPlayer());
+            if(partner != null) {
+                builder.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Methods.color("&cMarried to: &7" +
+                        partner.getName())).create())).append(fromLegacyText(Methods.color("&c\u2764"), net.md_5.bungee.api.ChatColor.RED));
+                builder.append(fromLegacyText(" ", net.md_5.bungee.api.ChatColor.WHITE));
+            }
 
             builder.event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/msg " + e.getPlayer().getName() + " "))
                     .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Methods.color(playerInfo)).create()))
