@@ -55,45 +55,6 @@ public class GrapplingHookItem extends Item implements Listener {
     }
 
     @EventHandler
-    public void onProjectileHit(ProjectileHitEvent e) {
-        if (e.getHitEntity() == null
-                || !grappleArrows.containsKey(e.getEntity()) || e.getEntity().isOnGround()) return;
-        grappleArrowDamageEvents.add(e.getHitEntity());
-        final Entity entity = e.getEntity();
-        LivingEntity livingEntity = grappleArrows.get(e.getEntity());
-        double distance = livingEntity.getLocation().distance(e.getHitEntity().getLocation());
-        final double[] yankPower = {1D};
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                if (e.getHitEntity().isDead()) {
-                    this.cancel();
-                }
-                Vector direction = livingEntity.getLocation()
-                        .toVector()
-                        .subtract(e.getHitEntity().getLocation().toVector()).normalize();
-                if (livingEntity instanceof Player && ((Player) livingEntity).isSneaking()) {
-                    this.cancel();
-                }
-                if (e.getHitEntity().getLocation().distance(livingEntity.getLocation()) < 2) {
-                    grappleArrows.remove(e.getEntity());
-                    this.cancel();
-                }
-                if (livingEntity.getLocation().distance(e.getHitEntity().getLocation()) > distance) {
-                    yankPower[0] *= 2;
-                    e.getHitEntity().setVelocity(direction.multiply(yankPower[0]));
-                }
-                e.getHitEntity().setVelocity(direction.multiply(1.2D));
-                if (grappleArrows.get(entity) != null) {
-                    drawLine(e.getHitEntity().getLocation(),
-                            livingEntity.getLocation(), 0.1D, new Vector(0, 1, 0));
-                }
-            }
-        }.runTaskTimer(VentusCore.instance, 0L, 0L);
-        e.getEntity().remove();
-    }
-
-    @EventHandler
     public void onShootBow(EntityShootBowEvent e) {
         if (this.isItem(e.getBow())) {
             new BukkitRunnable() {
