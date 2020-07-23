@@ -11,7 +11,9 @@ import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,19 +21,23 @@ import java.util.List;
 import java.util.UUID;
 
 public class MagicCarpetItem extends Item implements Listener, IPlayerTickUpdater {
-    private List<UUID> users;
     private double space = 0.5D;
     private double range = 1.5D;
 
 
     public MagicCarpetItem() {
         super("magiccarpet", Material.BLUE_CARPET, (short) 0, Methods.color("&b&l&oMAGIC CARPET"), generateLore());
-        users = new ArrayList<>();
         VentusCore.tickUpdaterHandler.register(this);
     }
 
     public static List<String> generateLore() {
         return Arrays.asList(Methods.color("&bTier 5"), Methods.color("&bFly around!"));
+    }
+
+    @EventHandler
+    public void onInteract(PlayerInteractEvent e) {
+        if(this.isItem(e.getItem()))
+            e.setCancelled(true);
     }
 
     @Override

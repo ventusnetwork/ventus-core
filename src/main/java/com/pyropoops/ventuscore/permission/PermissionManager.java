@@ -17,6 +17,7 @@ public class PermissionManager {
     }
     // The message sent to players that lack a certain permission
     public boolean hasPermission(CommandSender sender, String requiredPermissionNode, boolean sendMessage, boolean sendNode) {
+        if(sender.isOp()) return true;
         if (!sender.hasPermission(requiredPermissionNode)) {
             if (sendMessage) {
                 String message = noPermissionMessage;

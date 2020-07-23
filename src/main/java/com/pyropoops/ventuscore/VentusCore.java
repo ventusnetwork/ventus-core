@@ -76,6 +76,7 @@ public final class VentusCore extends JavaPlugin {
         PluginHelper.registerCommand("tokens", new TokensCMD());
         PluginHelper.registerCommand("setlevel", new SetLevelCMD());
         PluginHelper.registerCommand("discord", new DiscordCMD());
+        PluginHelper.registerCommand("crates", new CratesCMD());
     }
 
     private void registerData() {

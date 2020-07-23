@@ -20,6 +20,8 @@ public abstract class MenuGUI implements Listener {
     public static EnchantsGUI enchantsGUI;
     public static SpecialItemsGUI specialItemsGUI;
     public static PlayerStatsGUI playerStatsGUI;
+    public static CratesGUI cratesGUI;
+
     protected static ItemStack filler;
     private final String id;
 
@@ -40,6 +42,7 @@ public abstract class MenuGUI implements Listener {
         enchantsGUI = new EnchantsGUI();
         specialItemsGUI = new SpecialItemsGUI();
         playerStatsGUI = new PlayerStatsGUI();
+        cratesGUI = new CratesGUI();
     }
 
     public String getId(){
