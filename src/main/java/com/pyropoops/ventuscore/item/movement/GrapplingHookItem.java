@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.pyropoops.ventuscore.item.movement;
 
 import com.pyropoops.ventuscore.VentusCore;
