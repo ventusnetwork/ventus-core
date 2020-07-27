@@ -1,6 +1,6 @@
 default-tokens: 100
 rainbow-sequence: "abcdef"
-drill-pickaxe-unbreakable:
+drill-pickaxe-unbreakable-blocks:
   - BEDROCK
 swear-words:
   - fuck

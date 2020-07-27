@@ -28,8 +28,11 @@ public class SpecialItemsGUI extends MenuGUI {
     public SpecialItemsGUI() {
         super(Methods.color("&3&lVENTUS SPECIAL ITEMS"));
         this.pages = new HashMap<>();
-        items = Item.items;
-        items.removeIf(IBuyableItem::isHidden);
+        items = new ArrayList<>();
+        for (Item item : Item.items) {
+            if (!item.isHidden())
+                items.add(item);
+        }
     }
 
     public Inventory constructMenu(Player player, int page) {

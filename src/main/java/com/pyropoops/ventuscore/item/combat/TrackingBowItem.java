@@ -19,8 +19,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TrackingBowItem extends Item implements Listener {
-    private double range = 50D;
-
     public TrackingBowItem() {
         super("trackingbow", Material.BOW, (short) 0, Methods.color("&6&lTRACKING BOW"), generateLore());
     }

@@ -207,7 +207,7 @@ public class ChatHandler implements Listener {
                     .append(fromLegacyText(e.getPlayer().getDisplayName(), net.md_5.bungee.api.ChatColor.WHITE));
 
             String message = rainbowChatters.containsKey(e.getPlayer().getUniqueId()) ? rainbow(e.getMessage(), rainbowChatters.get(e.getPlayer().getUniqueId())) : e.getMessage();
-            builder.reset().append(Methods.color("&7 » &f") + VentusCore.instance.playerDataHandler.getChatColor(e.getPlayer()) + message);
+            builder.reset().append(fromLegacyText(Methods.color("&7 » &f") + VentusCore.instance.playerDataHandler.getChatColor(e.getPlayer()) + message, net.md_5.bungee.api.ChatColor.WHITE));
 
             BaseComponent[] baseComponents = builder.create();
             for (Player p : VentusCore.instance.getServer().getOnlinePlayers()) {
