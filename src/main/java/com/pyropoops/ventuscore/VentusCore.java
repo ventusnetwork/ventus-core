@@ -15,6 +15,7 @@ import com.pyropoops.ventuscore.item.movement.GrapplingHookItem;
 import com.pyropoops.ventuscore.item.movement.MagicCarpetItem;
 import com.pyropoops.ventuscore.item.movement.NimbusBroomItem;
 import com.pyropoops.ventuscore.item.movement.RocketBootsItem;
+import com.pyropoops.ventuscore.item.tools.DrillPickaxeItem;
 import com.pyropoops.ventuscore.permission.PermissionManager;
 import com.pyropoops.ventuscore.player.PlayerStats;
 import com.pyropoops.ventuscore.utils.TickUpdaterHandler;
@@ -55,8 +56,8 @@ public final class VentusCore extends JavaPlugin {
         registerPermissions();
         registerCommands();
         registerConfigs();
-        registerMenus();
         registerItems();
+        registerMenus();
 
         PlayerStats.register();
         ChatHandler.register();
@@ -96,6 +97,7 @@ public final class VentusCore extends JavaPlugin {
 
         // Tier 4
         new GrapplingHookItem();
+        new DrillPickaxeItem();
         new TrackingBowItem();
 
         // Tier 5

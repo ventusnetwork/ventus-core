@@ -3,6 +3,7 @@ package com.pyropoops.ventuscore.gui.tokens;
 import com.pyropoops.ventuscore.VentusCore;
 import com.pyropoops.ventuscore.data.PlayerDataHandler;
 import com.pyropoops.ventuscore.gui.MenuGUI;
+import com.pyropoops.ventuscore.item.IBuyableItem;
 import com.pyropoops.ventuscore.item.Item;
 import com.pyropoops.ventuscore.utils.Methods;
 import org.bukkit.Bukkit;
@@ -14,15 +15,21 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class SpecialItemsGUI extends MenuGUI {
     private HashMap<String, Integer> pages;
+    private List<Item> items;
 
     public SpecialItemsGUI() {
         super(Methods.color("&3&lVENTUS SPECIAL ITEMS"));
         this.pages = new HashMap<>();
+        items = Item.items;
+        items.removeIf(IBuyableItem::isHidden);
     }
 
     public Inventory constructMenu(Player player, int page) {
@@ -39,8 +46,8 @@ public class SpecialItemsGUI extends MenuGUI {
                 pageMeta.setLore(Arrays.asList(Methods.color("&cLeft Click: Next page"), Methods.color("&cRight Click: Previous page")));
                 pageItem.setItemMeta(pageMeta);
                 inventory.setItem(i, pageItem);
-            } else if (itemIndex < Item.items.size() && !Item.items.get(itemIndex).isHidden()) {
-                Item item = Item.items.get(itemIndex);
+            } else if (itemIndex < items.size()) {
+                Item item = items.get(itemIndex);
                 ItemStack itemStack = new ItemStack(item.getMaterial(), 1);
                 ItemMeta meta = itemStack.getItemMeta();
                 if (meta instanceof Damageable) {
@@ -81,7 +88,7 @@ public class SpecialItemsGUI extends MenuGUI {
     }
 
     private Item getItemFromDisplay(String displayName) {
-        for (Item item : Item.items) {
+        for (Item item : items) {
             if (item.getDisplayName().equals(displayName)) {
                 return item;
             }
@@ -90,7 +97,7 @@ public class SpecialItemsGUI extends MenuGUI {
     }
 
     private int getChangedPage(int currentPage, ClickType click) {
-        int size = Item.items.size();
+        int size = items.size();
         int pages = 0;
         while (size > 0) {
             size -= 8;
