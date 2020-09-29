@@ -83,36 +83,28 @@ public class ChatHandler implements Listener {
                         components.add(old);
                     }
 
-                    switch (format) {
-                        case BOLD:
-                            component.setBold(true);
-                            break;
-                        case ITALIC:
-                            component.setItalic(true);
-                            break;
-                        case UNDERLINE:
-                            component.setUnderlined(true);
-                            break;
-                        case STRIKETHROUGH:
-                            component.setStrikethrough(true);
-                            break;
-                        case MAGIC:
-                            component.setObfuscated(true);
-                            break;
-                        case RESET:
-                            format = defaultColor;
-                        default:
-                            component = new TextComponent();
-                            component.setColor(format);
-
-                            component.setBold(false);
-                            component.setItalic(false);
-                            component.setStrikethrough(false);
-                            component.setUnderlined(false);
-                            component.setObfuscated(false);
-
-                            break;
+                    if(format.equals(net.md_5.bungee.api.ChatColor.BOLD)) {
+                        component.setBold(true);
+                    } else if(format.equals(net.md_5.bungee.api.ChatColor.ITALIC)) {
+                        component.setItalic(true);
+                    } else if(format.equals(net.md_5.bungee.api.ChatColor.UNDERLINE)) {
+                        component.setUnderlined(true);
+                    } else if(format.equals(net.md_5.bungee.api.ChatColor.STRIKETHROUGH)) {
+                        component.setStrikethrough(true);
+                    } else if(format.equals(net.md_5.bungee.api.ChatColor.MAGIC)) {
+                        component.setObfuscated(true);
+                    } else if(format.equals(net.md_5.bungee.api.ChatColor.RESET)) {
+                        format = defaultColor;
                     }
+
+                    component = new TextComponent();
+                    component.setColor(format);
+
+                    component.setBold(false);
+                    component.setItalic(false);
+                    component.setStrikethrough(false);
+                    component.setUnderlined(false);
+                    component.setObfuscated(false);
                 }
             } else {
                 int pos = message.indexOf(32, i);
