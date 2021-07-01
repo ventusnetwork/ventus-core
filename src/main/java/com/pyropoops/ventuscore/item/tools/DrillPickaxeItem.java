@@ -3,11 +3,11 @@ package com.pyropoops.ventuscore.item.tools;
 import com.pyropoops.ventuscore.config.ConfigHandler;
 import com.pyropoops.ventuscore.item.Item;
 import com.pyropoops.ventuscore.utils.Methods;
-import net.minecraft.server.v1_15_R1.BlockPosition;
+import net.minecraft.core.BlockPosition;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -57,7 +57,7 @@ public class DrillPickaxeItem extends Item implements Listener {
 
     private void breakBlock(Block b, Player player){
         if(b.getType() != Material.AIR){
-            ((CraftPlayer) player).getHandle().playerInteractManager.breakBlock(new BlockPosition(b.getX(), b.getY(), b.getZ()));
+            ((CraftPlayer) player).getHandle().d.breakBlock(new BlockPosition(b.getX(), b.getY(), b.getZ()));
         }
     }
 

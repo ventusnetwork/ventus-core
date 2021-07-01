@@ -27,6 +27,8 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static net.md_5.bungee.api.ChatColor.*;
+
 public class ChatHandler implements Listener {
     private static final Pattern url = Pattern.compile("^(?:(https?)://)?([-\\w_.]{2,}\\.[a-z]{2,4})(/\\S*)?$");
     public static ChatHandler instance = null;
@@ -83,35 +85,36 @@ public class ChatHandler implements Listener {
                         components.add(old);
                     }
 
-                    switch (format) {
-                        case BOLD:
-                            component.setBold(true);
-                            break;
-                        case ITALIC:
-                            component.setItalic(true);
-                            break;
-                        case UNDERLINE:
-                            component.setUnderlined(true);
-                            break;
-                        case STRIKETHROUGH:
-                            component.setStrikethrough(true);
-                            break;
-                        case MAGIC:
-                            component.setObfuscated(true);
-                            break;
-                        case RESET:
-                            format = defaultColor;
-                        default:
-                            component = new TextComponent();
-                            component.setColor(format);
+                    if (BOLD.equals(format)) {
+                        component.setBold(true);
+                    } else if (ITALIC.equals(format)) {
+                        component.setItalic(true);
+                    } else if (UNDERLINE.equals(format)) {
+                        component.setUnderlined(true);
+                    } else if (STRIKETHROUGH.equals(format)) {
+                        component.setStrikethrough(true);
+                    } else if (MAGIC.equals(format)) {
+                        component.setObfuscated(true);
+                    } else if (RESET.equals(format)) {
+                        format = defaultColor;
 
-                            component.setBold(false);
-                            component.setItalic(false);
-                            component.setStrikethrough(false);
-                            component.setUnderlined(false);
-                            component.setObfuscated(false);
+                        component = new TextComponent();
+                        component.setColor(format);
 
-                            break;
+                        component.setBold(false);
+                        component.setItalic(false);
+                        component.setStrikethrough(false);
+                        component.setUnderlined(false);
+                        component.setObfuscated(false);
+                    } else {
+                        component = new TextComponent();
+                        component.setColor(format);
+
+                        component.setBold(false);
+                        component.setItalic(false);
+                        component.setStrikethrough(false);
+                        component.setUnderlined(false);
+                        component.setObfuscated(false);
                     }
                 }
             } else {
